@@ -11,7 +11,9 @@ export default function Model({onDepthMaterialUpdate}) {
   const materialRef = useRef()
   const mouseRef = useRef({ x: 0, y: 0 })
 
+  // individual rotation
   const rotation = -0.5
+  
   const hovered = useRef(false)
   const transValue = hovered.current ? 1.5 : 1.0
   const defaultUv = [0.5, 0.5]
