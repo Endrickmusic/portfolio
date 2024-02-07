@@ -7,7 +7,8 @@ import './index.css'
 import Img_About from './Img_About.jsx'
 import Img_Ocean from './Img_Ocean.jsx'
 import Img_Transmissive from './Img_Transmissive.jsx'
-import ShaderText from './ShaderText.jsx'
+import ShaderText_Y from './ShaderText_Y.jsx'
+import ShaderText_Z from './ShaderText_Z.jsx'
 
 
 function App() {
@@ -27,12 +28,18 @@ function App() {
     <Canvas
     camera={{ 
       position: [0, -3, 12],
-      fov: 40 }}  
+      fov: 40,
+      near: 0.1, 
+      far: 2000
+    }}  
     >
     <Rig />
 
-      <color attach="background" args={[0x999999]} />
+      <color attach="background" args={[0x242426]} />
+      
       {/* <OrbitControls /> */}
+
+
 
       <directionalLight 
       position={[0.2, 0.1, 0.2]} 
@@ -62,10 +69,15 @@ function App() {
       castShadow
       />
 
+      <ambientLight 
+      intensity={1.5}
+      />
+
     <Img_About />  
     <Img_Ocean />  
     <Img_Transmissive />  
-    <ShaderText />
+    <ShaderText_Y />
+    <ShaderText_Z />
     </Canvas>
   </>
   )
