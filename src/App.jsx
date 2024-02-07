@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-import HomePage from './Home.jsx'
-import BlobPage from './Blob.jsx'
-import OceanPage from './Ocean.jsx'
+import Home from './Home.jsx'
+import Blob from './Blob.jsx'
+import Ocean from './Ocean.jsx'
 
 class App extends Component {
   render() {
@@ -14,9 +14,9 @@ class App extends Component {
 
     <Router>
           <Routes>
-           <Route exact path="/Home.jsx" element={<HomePage />} />
-           <Route path="/Blob.jsx" element={<BlobPage />} />
-           <Route path="/Ocean.jsx" element={<OceanPage />} />
+           <Route exact path="/" element={<Home />} />
+           <Route path="/blob" element={<Blob />} />
+           <Route path="/ocean" element={<Ocean />} />
           </Routes>
       </Router>
       </>

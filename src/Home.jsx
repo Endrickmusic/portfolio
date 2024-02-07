@@ -13,6 +13,7 @@ import ShaderText_Z from './ShaderText_Z.jsx'
 
 function App() {
   
+
   function Rig() {
     const { camera } = useThree()
     const vec = new Vector3()

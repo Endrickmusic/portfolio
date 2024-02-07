@@ -2,10 +2,14 @@ import React from "react";
 import { useEnvironment, useTexture } from "@react-three/drei";
 import { DoubleSide } from "three"
 import { useRef, useEffect } from "react"
+import { useNavigate } from 'react-router-dom'
 
 import ModifiedShader from './NoiseShader.jsx'
 
 export default function Model({onDepthMaterialUpdate}) {
+
+  let nav = useNavigate()
+
   console.log("Model component rendered");
   const planeRef = useRef()
   const materialRef = useRef()
@@ -51,7 +55,7 @@ export default function Model({onDepthMaterialUpdate}) {
     >
       <mesh
       onPointerMove={handleMouseMove}
-      // onClick={(e) => click(!clicked)}
+      onClick={(e) => {nav('/blob')}} 
       ref = { planeRef }
       scale = {0.2}
       rotation = { [-0.2*Math.PI, 0.1*Math.PI, 0] }
