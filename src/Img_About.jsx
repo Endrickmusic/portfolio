@@ -11,6 +11,7 @@ export default function Model({onDepthMaterialUpdate}) {
   const materialRef = useRef()
   const mouseRef = useRef({ x: 0, y: 0 })
 
+  const rotation = -0.9
   const hovered = useRef(false)
   const transValue = hovered.current ? 1.5 : 1.0
   const defaultUv = [0.5, 0.5]
@@ -43,7 +44,9 @@ export default function Model({onDepthMaterialUpdate}) {
     };
 
   return (
-    <group dispose={null}>
+    <group dispose={null}
+    position={[3.5, 1., 0]}
+    >
       <mesh
       onPointerMove={handleMouseMove}
       // onClick={(e) => click(!clicked)}
@@ -84,7 +87,10 @@ export default function Model({onDepthMaterialUpdate}) {
       onDepthMaterialUpdate = {handleDepthMaterial} 
       hovered = {hovered}
       mouse = {mouseRef.current}
+      rotation = {rotation}
       />
+
+      
     </group>
   )
 }

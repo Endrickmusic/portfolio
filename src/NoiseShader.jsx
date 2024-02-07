@@ -2,7 +2,7 @@ import { RGBADepthPacking, MeshDepthMaterial, MathUtils, Vector2 } from "three"
 import { useRef, useEffect } from "react"
 import { useFrame } from '@react-three/fiber'
 
-export default function modMaterial( {planeRef, onDepthMaterialUpdate, hovered, mouse} ) {
+export default function modMaterial( {planeRef, onDepthMaterialUpdate, hovered, mouse, rotation} ) {
 
     const customUniforms = {
         uTime: { value: 0 },
@@ -14,7 +14,7 @@ export default function modMaterial( {planeRef, onDepthMaterialUpdate, hovered, 
         const time = state.clock.getElapsedTime() 
         customUniforms.uTime.value = time 
         const transValue = hovered.current ? 3.0 : 1.0
-        planeRef.current.rotation.x = planeRef.current.rotation.y = - 0.2 + (Math.sin(time / 5) * 0.3)
+        planeRef.current.rotation.x = planeRef.current.rotation.y = - 0.2 + (Math.sin(time / 5) * 0.3) * rotation
         customUniforms.uDisplay.value = MathUtils.lerp(customUniforms.uDisplay.value, transValue, 0.075)
         customUniforms.uMouse.value = mouse
         // console.log('Time:', customUniforms.uTime.value);
