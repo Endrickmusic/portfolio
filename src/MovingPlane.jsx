@@ -20,13 +20,13 @@ export default function MovingPlane(){
       u_colorA: { value: new Color("#FFE486") },
       u_colorB: { value: new Color("#FEB3D9") },
     }), []
-  );
+  )
 
 useFrame((state, delta) => {
     const { clock } = state;
     // mesh.current.material.uniforms.u_time.value = clock.getElapsedTime();
     mesh.current.material.uniforms.u_time.value += delta;
-  });
+  })
 
   return (
     <mesh 
