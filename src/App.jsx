@@ -1,11 +1,12 @@
 import * as THREE from "three"
 import { useCallback, useEffect } from "react"
-import { Canvas, useThree } from "@react-three/fiber"
-import { Scroll, Preload, ScrollControls } from "@react-three/drei"
+import { Canvas, useThree, useFrame } from "@react-three/fiber"
+import { Scroll, Preload, ScrollControls, Plane } from "@react-three/drei"
 
 import Images from "./Images.jsx"
 import Lens from "./Lens.jsx"
 import Typography from "./Typo.jsx"
+
 function ResizeHandler() {
   const { gl, camera } = useThree()
 
@@ -24,6 +25,54 @@ function ResizeHandler() {
   return null
 }
 
+function ShaderPlane() {
+  const { viewport } = useThree()
+
+  const uniforms = {
+    uTime: { value: 0 },
+    uColor1: { value: new THREE.Color("#ff0000") }, // bright red
+    uColor2: { value: new THREE.Color("#0000ff") }, // bright blue
+  }
+
+  useFrame((state) => {
+    uniforms.uTime.value = state.clock.elapsedTime
+  })
+
+  return (
+    <mesh position={[0, -viewport.height * 0.8, 13]}>
+      <planeGeometry args={[viewport.width * 0.5, viewport.height * 0.5]} />
+      <shaderMaterial
+        uniforms={uniforms}
+        vertexShader={`
+          varying vec2 vUv;
+          
+          void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `}
+        fragmentShader={`
+          uniform float uTime;
+          uniform vec3 uColor1;
+          uniform vec3 uColor2;
+          varying vec2 vUv;
+
+          void main() {
+            vec2 center = vec2(0.5);
+            float dist = length(vUv - center);
+
+            float wave = sin(dist * 5.0 - uTime * 10.0) * 0.5 + 0.5;
+            vec3 color = mix(uColor1, uColor2, wave);
+
+            gl_FragColor = vec4(color, 0.5);
+          }
+        `}
+        transparent={false}
+      />
+    </mesh>
+  )
+}
+
 export default function App() {
   return (
     <Canvas
@@ -36,6 +85,7 @@ export default function App() {
           <Scroll>
             <Typography />
             <Images />
+            <ShaderPlane />
           </Scroll>
           <Scroll html>
             <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>

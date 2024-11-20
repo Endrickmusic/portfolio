@@ -7,7 +7,6 @@ import { easing } from "maath"
 
 export default function Lens({ children, damping = 0.15, ...props }) {
   const ref = useRef()
-  // const { nodes } = useGLTF('/lens-transformed.glb')
   const roughnessMap = useTexture("./Textures/waternormals.jpeg")
   const buffer = useFBO()
   const viewport = useThree((state) => state.viewport)
@@ -51,22 +50,10 @@ export default function Lens({ children, damping = 0.15, ...props }) {
         scale={0.35}
         ref={ref}
         rotation={[Math.PI / 3, Math.PI / 3, Math.PI / 3]}
-        // geometry={nodes.Cylinder.geometry}
         {...props}
       >
         <boxGeometry />
-        <MeshTransmissionMaterial
-          // buffer={buffer.texture}
-          buffer={false}
-          ior={1.2}
-          thickness={1.5}
-          anisotropy={0.1}
-          chromaticAberration={0.04}
-          roughness={0.2}
-          backside={true}
-          backsideThickness={0.1}
-          transmission={1}
-        />
+        <meshBasicMaterial map={buffer.texture} />
       </mesh>
     </>
   )
