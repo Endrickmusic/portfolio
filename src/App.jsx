@@ -1,5 +1,5 @@
 import * as THREE from "three"
-import { useRef, useState } from "react"
+import { useRef, useState, useCallback, useEffect } from "react"
 import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber"
 import {
   useFBO,
@@ -18,9 +18,31 @@ import { easing } from "maath"
 
 import Images from "./Images.jsx"
 
+function ResizeHandler() {
+  const { gl, camera } = useThree()
+
+  const handleResize = useCallback(() => {
+    const { innerWidth, innerHeight } = window
+    camera.aspect = innerWidth / innerHeight
+    camera.updateProjectionMatrix()
+    gl.setSize(innerWidth, innerHeight)
+  }, [gl, camera])
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [handleResize])
+
+  return null
+}
+
 export default function App() {
   return (
-    <Canvas camera={{ position: [0, 0, 20], fov: 15 }}>
+    <Canvas
+      camera={{ position: [0, 0, 20], fov: 15 }}
+      gl={{ outputColorSpace: THREE.SRGBColorSpace }}
+    >
+      <ResizeHandler />
       <ScrollControls damping={0.2} pages={3} distance={0.5}>
         <Lens>
           <Scroll>
