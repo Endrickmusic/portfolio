@@ -1,20 +1,7 @@
 import * as THREE from "three"
-import { useRef, useState, useCallback, useEffect } from "react"
-import { Canvas, createPortal, useFrame, useThree } from "@react-three/fiber"
-import {
-  useFBO,
-  useGLTF,
-  useScroll,
-  Text,
-  Image,
-  Scroll,
-  Preload,
-  ScrollControls,
-  MeshTransmissionMaterial,
-  useTexture,
-  useEnvironment,
-} from "@react-three/drei"
-import { easing } from "maath"
+import { useCallback, useEffect } from "react"
+import { Canvas, useThree } from "@react-three/fiber"
+import { Scroll, Preload, ScrollControls } from "@react-three/drei"
 
 import Images from "./Images.jsx"
 import Lens from "./Lens.jsx"
