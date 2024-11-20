@@ -7,7 +7,7 @@ import { easing } from "maath"
 
 export default function Lens({ children, damping = 0.15, ...props }) {
   const ref = useRef()
-  const roughnessMap = useTexture("./Textures/waternormals.jpeg")
+  const roughnessMap = useTexture("./textures/waternormals.jpeg")
   const buffer = useFBO()
   const viewport = useThree((state) => state.viewport)
   const [scene] = useState(() => new THREE.Scene())

@@ -1,20 +1,25 @@
 const vertexShader = `
-uniform float u_time;
+attribute vec4 vertexPosition;
 
-varying float vZ;
+uniform float uTime;
+
+varying vec2 vUv;
+varying vec3 vColor;
+varying vec3 worldNormal;
+varying vec3 eyeVector;
+
+float PI = 3.141592;
+
 
 void main() {
-  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  
-  modelPosition.y += sin(modelPosition.x * 5.0 + u_time * 3.0) * 0.1;
-  modelPosition.y += sin(modelPosition.z * 6.0 + u_time * 2.0) * 0.1;
-  
-  vZ = modelPosition.y;
 
-  vec4 viewPosition = viewMatrix * modelPosition;
-  vec4 projectedPosition = projectionMatrix * viewPosition;
+    vec4 worldPosition = modelViewMatrix * vec4(position, 1.0);
+    vec3 viewDirection = normalize(-worldPosition.xyz);
+    
+    // Output vertex position
+    gl_Position = projectionMatrix * worldPosition;
+    vUv = uv;
 
-  gl_Position = projectedPosition;
 }
 
 `
