@@ -43,6 +43,7 @@ export default function App() {
         <Scroll>
           <Typography />
           <Images />
+          <Shader />
         </Scroll>
         <Scroll html>
           <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>
@@ -67,7 +68,6 @@ export default function App() {
                By default threejs will only process objects if they are "seen" by the camera leading 
                to jank as you scroll down. With <Preload> that's solved.  */}
         <Preload />
-        <Shader />
         {/* </Lens> */}
       </ScrollControls>
     </Canvas>

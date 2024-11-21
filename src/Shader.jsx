@@ -6,40 +6,59 @@ import {
   OrbitControls,
 } from "@react-three/drei"
 import { useFrame, useThree } from "@react-three/fiber"
-import { useRef, useMemo, useEffect, useCallback } from "react"
-import { useControls } from "leva"
+import { useRef, useMemo, useEffect, useCallback, useState } from "react"
+import { useControls, Leva } from "leva"
 
-import vertexShader from "./shader/vertexShader.js"
-import fragmentShader from "./shader/camFragmentShader.js"
-import { Vector2, Vector3, MathUtils } from "three"
+import vertexShader from "./shaders/vertexShader.js"
+import fragmentShader from "./shaders/fragmentShader.js"
+import { Vector2, Matrix4 } from "three"
+import useShaderMaterial from "./hooks/useShaderMaterial.jsx"
 
 export default function Shader() {
   const meshRef = useRef()
   const buffer = useFBO()
   const viewport = useThree((state) => state.viewport)
-  const scene = useThree((state) => state.scene)
   const camera = useThree((state) => state.camera)
+  const gl = useThree((state) => state.gl)
+  const scene = useThree((state) => state.scene)
 
-  const nearPlaneWidth =
-    camera.near *
-    Math.tan(MathUtils.degToRad(camera.fov / 2)) *
-    camera.aspect *
-    2
-  const nearPlaneHeight = nearPlaneWidth / camera.aspect
+  const shaderMaterial = useShaderMaterial({ vertexShader, fragmentShader })
 
+  // Memoize mouse position handler
   const mousePosition = useRef({ x: 0, y: 0 })
 
   const updateMousePosition = useCallback((e) => {
     mousePosition.current = { x: e.pageX, y: e.pageY }
   }, [])
 
+  // Memoize textures
   const noiseTexture = useTexture("./textures/noise.png")
-
   const cubeTexture = useCubeTexture(
     ["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"],
     { path: "./cubemap/potsdamer_platz/" }
   )
 
+  const [worldToObjectMatrix, setWorldToObjectMatrix] = useState(new Matrix4())
+
+  // Memoize controls
+  const controls = useControls({
+    reflection: { value: 1.5, min: 0.01, max: 6.0, step: 0.1 },
+    speed: { value: 0.5, min: 0.01, max: 3.0, step: 0.01 },
+    IOR: { value: 0.98, min: 0.01, max: 2.0, step: 0.01 },
+    count: { value: 3, min: 1, max: 20, step: 1 },
+    size: { value: 1.0, min: 0.1, max: 2.5, step: 0.01 },
+    dispersion: { value: 0.03, min: 0.0, max: 0.1, step: 0.001 },
+    refract: { value: 1.1, min: -10.0, max: 10.0, step: 0.1 },
+    chromaticAberration: {
+      value: 0.18,
+      min: 0,
+      max: 1.5,
+      step: 0.01,
+    },
+    saturation: { value: 1.05, min: 1, max: 1.25, step: 0.01 },
+  })
+
+  // Destructure controls for use in useFrame
   const {
     reflection,
     speed,
@@ -48,194 +67,115 @@ export default function Shader() {
     size,
     dispersion,
     refract,
-    chromaticAbberation,
-  } = useControls({
-    reflection: {
-      value: 1.5,
-      min: 0.01,
-      max: 6.0,
-      step: 0.1,
-    },
-    speed: {
-      value: 0.5,
-      min: 0.01,
-      max: 3.0,
-      step: 0.01,
-    },
-    IOR: {
-      value: 0.84,
-      min: 0.01,
-      max: 2.0,
-      step: 0.01,
-    },
-    count: {
-      value: 3,
-      min: 1,
-      max: 20,
-      step: 1,
-    },
-    size: {
-      value: 0.005,
-      min: 0.001,
-      max: 0.5,
-      step: 0.001,
-    },
-    dispersion: {
-      value: 0.03,
-      min: 0.0,
-      max: 0.1,
-      step: 0.001,
-    },
-    refract: {
-      value: 0.15,
-      min: 0.0,
-      max: 2.0,
-      step: 0.1,
-    },
-    chromaticAbberation: {
-      value: 0.5,
-      min: 0.0,
-      max: 5.0,
-      step: 0.1,
-    },
-  })
+    chromaticAberration,
+  } = controls
 
+  // Matrix update effect
+  useEffect(() => {
+    const object = meshRef.current
+    if (object) {
+      const updateMatrix = () => {
+        object.updateMatrixWorld()
+        const inverseMatrix = new Matrix4().copy(object.matrixWorld).invert()
+        setWorldToObjectMatrix(inverseMatrix)
+        object.material.uniforms.uInverseModelMat.value = inverseMatrix
+      }
+
+      updateMatrix()
+      return () => {
+        object.material.uniforms.uInverseModelMat.value = new Matrix4()
+      }
+    }
+  }, [])
+
+  // Mouse event listener
   useEffect(() => {
     window.addEventListener("mousemove", updateMousePosition, false)
-    console.log("mousePosition", mousePosition)
-    return () => {
+    return () =>
       window.removeEventListener("mousemove", updateMousePosition, false)
-    }
   }, [updateMousePosition])
 
-  let cameraForwardPos = new Vector3(0, 0, -1)
+  // Add this useEffect to handle control changes
+  useEffect(() => {
+    if (!meshRef.current) return
 
+    meshRef.current.material.uniforms.uReflection.value = controls.reflection
+    meshRef.current.material.uniforms.uSpeed.value = controls.speed
+    meshRef.current.material.uniforms.uIOR.value = controls.IOR
+    meshRef.current.material.uniforms.uCount.value = controls.count
+    meshRef.current.material.uniforms.uSize.value = controls.size
+    meshRef.current.material.uniforms.uDispersion.value = controls.dispersion
+    meshRef.current.material.uniforms.uRefract.value = controls.refract
+    meshRef.current.material.uniforms.uChromaticAberration.value =
+      controls.chromaticAberration
+    meshRef.current.material.uniforms.uSaturation.value = controls.saturation
+  }, [controls])
+
+  // Simplified useFrame that only handles time-based and position-based updates
   useFrame((state) => {
-    let time = state.clock.getElapsedTime()
+    const mesh = meshRef.current
+    if (!mesh) return
 
-    // console.log("mousePosition", mousePosition.current)
-
-    // meshRef.current.material.uniforms.uMouse.value = new Vector2(0, 0)
-    meshRef.current.material.uniforms.uMouse.value = new Vector2(
+    const time = state.clock.getElapsedTime()
+    mesh.material.uniforms.uCamPos.value.copy(camera.position)
+    mesh.material.uniforms.uCamToWorldMat.value.copy(camera.matrixWorld)
+    mesh.material.uniforms.uCamInverseProjMat.value.copy(
+      camera.projectionMatrixInverse
+    )
+    mesh.material.uniforms.uMouse.value.set(
       mousePosition.current.x,
       mousePosition.current.y
     )
+    mesh.material.uniforms.uTime.value = time * controls.speed
 
-    meshRef.current.material.uniforms.uTime.value = time * speed
-    meshRef.current.material.uniforms.uReflection.value = reflection
-    meshRef.current.material.uniforms.uSpeed.value = speed
-    meshRef.current.material.uniforms.uIOR.value = IOR
-    meshRef.current.material.uniforms.uCount.value = count
-    meshRef.current.material.uniforms.uSize.value = size
-    meshRef.current.material.uniforms.uDispersion.value = dispersion
-    meshRef.current.material.uniforms.uRefractPower.value = refract
-    meshRef.current.material.uniforms.uChromaticAbberation.value =
-      chromaticAbberation
-
-    cameraForwardPos = camera.position
-      .clone()
-      .add(
-        camera
-          .getWorldDirection(new Vector3(0, 0, 0))
-          .multiplyScalar(camera.near)
-      )
-    meshRef.current.position.copy(cameraForwardPos)
-    meshRef.current.rotation.copy(camera.rotation)
-
-    // This is entirely optional but spares us one extra render of the scene
-    // The createPortal below will mount the children of <Lens> into the new THREE.Scene above
-    // The following code will render that scene into a buffer, whose texture will then be fed into
-    // a plane spanning the full screen and the lens transmission material
-    state.gl.setRenderTarget(buffer)
-    state.gl.setClearColor("#d8d7d7")
-    state.gl.render(scene, state.camera)
-    state.gl.setRenderTarget(null)
+    // FBO rendering
+    gl.setRenderTarget(buffer)
+    gl.setClearColor("#d8d7d7")
+    gl.render(scene, camera)
+    gl.setRenderTarget(null)
   })
 
-  // Define the shader uniforms with memoization to optimize performance
-  const uniforms = useMemo(
-    () => ({
-      uCamPos: { value: camera.position },
-      uCamToWorldMat: { value: camera.matrixWorld },
-      uCamInverseProjMat: { value: camera.projectionMatrixInverse },
-      uTime: {
-        type: "f",
-        value: 1.0,
-      },
-      uMouse: {
-        type: "v2",
-        value: new Vector2(0, 0),
-      },
-      uResolution: {
-        type: "v2",
-        value: new Vector2(viewport.width, viewport.height).multiplyScalar(
-          Math.min(window.devicePixelRatio, 2)
-        ),
-      },
-      uTexture: {
-        type: "sampler2D",
-        value: buffer.texture,
-      },
-      uNoiseTexture: {
-        type: "sampler2D",
-        value: noiseTexture,
-      },
-      iChannel0: {
-        type: "samplerCube",
-        value: cubeTexture,
-      },
-      uSpeed: {
-        type: "f",
-        value: speed,
-      },
-      uIOR: {
-        type: "f",
-        value: IOR,
-      },
-      uCount: {
-        type: "i",
-        value: count,
-      },
-      uReflection: {
-        type: "f",
-        value: reflection,
-      },
-      uSize: {
-        type: "f",
-        value: size,
-      },
-      uDispersion: {
-        type: "f",
-        value: dispersion,
-      },
-      uRefractPower: {
-        type: "f",
-        value: refract,
-      },
-      uChromaticAbberation: {
-        type: "f",
-        value: chromaticAbberation,
-      },
-    }),
-    [viewport.width, viewport.height, buffer.texture]
-  )
+  // Create a ref for resolution to avoid recreating Vector2 on every frame
+  const resolutionRef = useRef(new Vector2())
+
+  // Handle resolution updates
+  useEffect(() => {
+    const updateResolution = () => {
+      if (meshRef.current?.material) {
+        resolutionRef.current
+          .set(viewport.width, viewport.height)
+          .multiplyScalar(Math.min(window.devicePixelRatio, 2))
+        meshRef.current.material.uniforms.uResolution.value =
+          resolutionRef.current
+      }
+    }
+
+    window.addEventListener("resize", updateResolution)
+    updateResolution() // Initial set
+
+    return () => window.removeEventListener("resize", updateResolution)
+  }, [viewport.width, viewport.height])
+
+  // Update shader material with textures when they're available
+  useEffect(() => {
+    if (meshRef.current && noiseTexture && cubeTexture && buffer) {
+      meshRef.current.material.uniforms.uNoiseTexture.value = noiseTexture
+      meshRef.current.material.uniforms.iChannel0.value = cubeTexture
+      meshRef.current.material.uniforms.uTexture.value = buffer.texture
+    }
+  }, [noiseTexture, cubeTexture, buffer])
 
   return (
     <>
       {/* <OrbitControls /> */}
-      {/* <mesh position={[0, 0.5, -4]} rotation={[2, 4, 1]}>
+      {/* <Leva /> */}
+      <mesh position={[0, 0.5, -4]} rotation={[2, 4, 1]}>
         <boxGeometry />
         <meshNormalMaterial />
-      </mesh> */}
-
-      <mesh ref={meshRef} scale={[nearPlaneWidth, nearPlaneHeight, 1]}>
-        <planeGeometry args={[1, 1]} />
-        <shaderMaterial
-          uniforms={uniforms}
-          vertexShader={vertexShader}
-          fragmentShader={fragmentShader}
-          transparent={true}
-        />
+      </mesh>
+      <mesh ref={meshRef} scale={2} position={[0, 0, 0]}>
+        <boxGeometry args={[1, 1, 0.5]} />
+        <primitive object={shaderMaterial} />
       </mesh>
     </>
   )

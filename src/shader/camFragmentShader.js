@@ -47,9 +47,9 @@ float sphere(in vec3 p, in float r) {
 
     // noise displacement
     float noise = texture2D(uNoiseTexture, uv).r;
-    float displacement = sin(p.x * 3.0 + uTime * 5. + noise) * 0.3;
-    displacement *= smoothstep(0.8, -0.8, p.y); // reduce displacement at the poles
-    d += displacement;
+    // float displacement = sin(p.x * 3.0 + uTime * 5. + noise) * 0.3;
+    // displacement *= smoothstep(0.8, -0.8, p.y); // reduce displacement at the poles
+    // d += displacement;
 
     return d;
     }
