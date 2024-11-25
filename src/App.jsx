@@ -30,8 +30,8 @@ export default function App() {
   return (
     <Canvas
       camera={{
-        position: [0, 0, 10],
-        fov: 35,
+        position: [0, 0, 20],
+        fov: 15,
         near: 0.1,
         far: 1000,
         aspect: window.innerWidth / window.innerHeight,
@@ -43,7 +43,7 @@ export default function App() {
         <Scroll>
           <Typography />
           <Images />
-          <Shader />
+          <Shader position={[-1, 0, 0]} />
         </Scroll>
         <Scroll html>
           <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>

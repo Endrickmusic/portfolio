@@ -14,7 +14,7 @@ import fragmentShader from "./shaders/fragmentShader.js"
 import { Vector2, Matrix4 } from "three"
 import useShaderMaterial from "./hooks/useShaderMaterial.jsx"
 
-export default function Shader() {
+export default function Shader({ position }) {
   const meshRef = useRef()
   const buffer = useFBO()
   const viewport = useThree((state) => state.viewport)
@@ -167,13 +167,7 @@ export default function Shader() {
 
   return (
     <>
-      {/* <OrbitControls /> */}
-      {/* <Leva /> */}
-      <mesh position={[0, 0.5, -4]} rotation={[2, 4, 1]}>
-        <boxGeometry />
-        <meshNormalMaterial />
-      </mesh>
-      <mesh ref={meshRef} scale={2} position={[0, 0, 0]}>
+      <mesh ref={meshRef} scale={4} position={position}>
         <boxGeometry args={[1, 1, 0.5]} />
         <primitive object={shaderMaterial} />
       </mesh>
