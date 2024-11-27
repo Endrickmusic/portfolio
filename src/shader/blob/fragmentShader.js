@@ -64,7 +64,7 @@ float opSmoothUnion( float d1, float d2, float k ) {
 float GetDist(vec3 p) {
 	float d = 1e5;
 
-	vec3 mousePos = vec3(uMouse.x * (uResolution.x/uResolution.y) * 2.5, uMouse.y * 2.5, 0.0);
+	vec3 mousePos = vec3(uMouse.x * .5, uMouse.y * 0.5, 0.0);
     d = sphere(p - mousePos, uPointerSize);
 
 
@@ -109,7 +109,8 @@ vec3 sat(vec3 rgb, float intensity) {
 	void main() {
 
 		float iorRatio = uIOR;
-		vec2 uv = vUv - 0.5;
+		float aspect = uResolution.x / uResolution.y;
+		vec2 uv = vUv.xy / aspect;
 		vec3 ro = vRayOrigin.xyz;
 		vec3 rd = normalize(vHitPos - ro); 
 
