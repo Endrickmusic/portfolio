@@ -45,10 +45,10 @@ float sphere(in vec3 p, in float r) {
 
     // texture displacement
     // vec2 uv = vec2(atan(p.x, p.z) / TWO_PI, p.y / 5.);
-    vec2 uv = vec2(0.5 + atan(p.z, p.x) / (2.0 * PI), 0.5 - asin(p.y) / PI);
-    float noise = texture2D(uNoiseTexture, uv).r;
-    float displacement = sin(p.x * 15.0 + uTime * 1. + noise) * 0.05;
-    displacement *= smoothstep(.9, -.1, p.y); // reduce displacement at the poles
+    // vec2 uv = vec2(0.5 + atan(p.z, p.x) / (2.0 * PI), 0.5 - asin(p.y) / PI);
+    // float noise = texture2D(uNoiseTexture, uv).r;
+    // float displacement = sin(p.x * 15.0 + uTime * 1. + noise) * 0.05;
+    // displacement *= smoothstep(.9, -.1, p.y); // reduce displacement at the poles
     // d += displacement;
 
     return d;
@@ -64,7 +64,7 @@ float opSmoothUnion( float d1, float d2, float k ) {
 float GetDist(vec3 p) {
 	float d = 1e5;
 
-	vec3 mousePos = vec3(uMouse.x * .5, uMouse.y * 0.5, 0.0);
+	vec3 mousePos = vec3(uMouse.x * (uResolution.x/uResolution.y) * 0.5, uMouse.y * 0.5, 0.0);
     d = sphere(p - mousePos, uPointerSize);
 
 
@@ -112,7 +112,8 @@ vec3 sat(vec3 rgb, float intensity) {
 		float aspect = uResolution.x / uResolution.y;
 		vec2 uv = vUv.xy / aspect;
 		vec3 ro = vRayOrigin.xyz;
-		vec3 rd = normalize(vHitPos - ro); 
+		vec3 hitPos = vec3(vHitPos.x * aspect, vHitPos.y, vHitPos.z);
+		vec3 rd = normalize(hitPos - ro); 
 
 		float d = Raymarch(ro, rd);
 
