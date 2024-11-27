@@ -9,8 +9,8 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { useRef, useMemo, useEffect, useCallback, useState } from "react"
 import { useControls, Leva } from "leva"
 
-import vertexShader from "./shaders/vertexShader.js"
-import fragmentShader from "./shaders/fragmentShader.js"
+import vertexShader from "./shader/blob/vertexShader.js"
+import fragmentShader from "./shader/blob/fragmentShader.js"
 import { Vector2, Matrix4 } from "three"
 import useShaderMaterial from "./hooks/useShaderMaterial.jsx"
 
@@ -56,6 +56,7 @@ export default function Shader({ position, scale }) {
       step: 0.01,
     },
     saturation: { value: 1.05, min: 1, max: 1.25, step: 0.01 },
+    pointerSize: { value: 0.3, min: 0.01, max: 1.0, step: 0.1 },
   })
 
   // Destructure controls for use in useFrame
@@ -88,12 +89,18 @@ export default function Shader({ position, scale }) {
     }
   }, [])
 
-  // Mouse event listener
+  // Mouse movement handler
   useEffect(() => {
-    window.addEventListener("mousemove", updateMousePosition, false)
-    return () =>
-      window.removeEventListener("mousemove", updateMousePosition, false)
-  }, [updateMousePosition])
+    const handleMouseMove = (e) => {
+      mousePosition.current = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      }
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   // Add this useEffect to handle control changes
   useEffect(() => {
@@ -109,6 +116,7 @@ export default function Shader({ position, scale }) {
     meshRef.current.material.uniforms.uChromaticAberration.value =
       controls.chromaticAberration
     meshRef.current.material.uniforms.uSaturation.value = controls.saturation
+    meshRef.current.material.uniforms.uPointerSize.value = controls.pointerSize
   }, [controls])
 
   // Simplified useFrame that only handles time-based and position-based updates

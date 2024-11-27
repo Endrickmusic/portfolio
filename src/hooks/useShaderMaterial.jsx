@@ -16,6 +16,7 @@ function useShaderMaterial({ vertexShader, fragmentShader }) {
           uInverseModelMat: { value: new THREE.Matrix4() },
           uTime: { value: 0 },
           uMouse: { value: new THREE.Vector2() },
+          uPointerSize: { value: 0.03 },
           uResolution: { value: new THREE.Vector2() },
           uTexture: { value: new THREE.Texture() },
           uNoiseTexture: { value: new THREE.Texture() },
