@@ -43,9 +43,9 @@ export default function App() {
         <Scroll>
           {/* <Typography /> */}
           <Images />
-          <Shader position={[0, 0, 3]} uSize={0.7} />
+          <Shader position={[0, 0, 3]} uSize={0.6} />
           <Shader position={[0, -1, 7]} uSize={0.005} />
-          <Shader position={[0, -2, 8]} uSize={0.025} />
+          <Shader position={[0, -2, 8]} uSize={0.005} />
         </Scroll>
         <Scroll html>
           <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>
