@@ -132,9 +132,12 @@ vec3 sat(vec3 rgb, float intensity) {
 				vec3 refractVecG = refract(rd, n, iorRatioGreen);
 				vec3 refractVecB = refract(rd, n, iorRatioBlue);
 		
-				color.r += textureCube(iChannel0, refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).r;
-				color.g += textureCube(iChannel0, refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).g;
-				color.b += textureCube(iChannel0, refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).b;
+				// color.r += textureCube(iChannel0, refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).r;
+				// color.g += textureCube(iChannel0, refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).g;
+				// color.b += textureCube(iChannel0, refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).b;
+				color.r += texture2D(uTexture, (refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).xy).r;
+				color.g += texture2D(uTexture, (refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).xy).g;
+				color.b += texture2D(uTexture, (refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).xy).b;
 
 				color = sat(color, uSaturation);
 			}

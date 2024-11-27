@@ -2,7 +2,7 @@ import * as THREE from "three"
 import { useCallback, useEffect } from "react"
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { Scroll, Preload, ScrollControls, Plane } from "@react-three/drei"
-
+import { Leva } from "leva"
 import Images from "./Images.jsx"
 import Lens from "./Lens.jsx"
 import Typography from "./Typo.jsx"
@@ -70,6 +70,7 @@ export default function App() {
         <Preload />
         {/* </Lens> */}
       </ScrollControls>
+      {/* <Leva /> */}
     </Canvas>
   )
 }
