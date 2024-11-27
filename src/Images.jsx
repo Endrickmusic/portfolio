@@ -2,6 +2,8 @@ import { useRef } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
 import { Image, useScroll } from "@react-three/drei"
 
+import ComputeShader from "./ComputeShader.jsx"
+
 export default function Images() {
   const group = useRef()
   const data = useScroll()
@@ -38,10 +40,10 @@ export default function Images() {
         scale={[1, 2, 1]}
         url="./img/more_money_02.png"
       />
-      <Image
-        position={[0.75, -height, 10.5]}
-        scale={1.5}
-        url="./img/nohdri0114.png"
+      <ComputeShader
+        position={[1.5, -height, 2]}
+        scale={0.006}
+        rotation={[2 * Math.PI, 0, 0]}
       />
       <Image
         position={[0, -height * 1.5, 7.5]}
@@ -51,7 +53,7 @@ export default function Images() {
       <Image
         position={[0, -height * 2 - height / 4, 0]}
         scale={[width / 2, height / 1.1, 1]}
-        url="./img/ocean_iridescent_27.png"
+        url="./img/nohdri0114.png"
       />
     </group>
   )

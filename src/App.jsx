@@ -3,10 +3,12 @@ import { useCallback, useEffect } from "react"
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { Scroll, Preload, ScrollControls, Plane } from "@react-three/drei"
 import { Leva } from "leva"
+
 import Images from "./Images.jsx"
 import Lens from "./Lens.jsx"
 import Typography from "./Typo.jsx"
 import Shader from "./Shader.jsx"
+import ComputeShader from "./ComputeShader.jsx"
 
 function ResizeHandler() {
   const { gl, camera } = useThree()
@@ -41,11 +43,16 @@ export default function App() {
       <ScrollControls damping={0.2} pages={3} distance={0.5}>
         {/* <Lens> */}
         <Scroll>
-          {/* <Typography /> */}
+          <Typography />
           <Images />
           <Shader position={[0, 0, 3]} uSize={0.6} />
           <Shader position={[0, -1, 7]} uSize={0.005} />
           <Shader position={[0, -2, 8]} uSize={0.005} />
+          {/* <ComputeShader
+            scale={0.006}
+            rotation={[2 * Math.PI, 0, 0]}
+            position={[0.75, -12, 2]}
+          /> */}
         </Scroll>
         <Scroll html>
           <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>

@@ -6,7 +6,7 @@ import { useEnvironment, useTexture, OrbitControls } from "@react-three/drei"
 import { SimplexNoise } from "three/addons/math/SimplexNoise.js"
 import { useControls } from "leva"
 
-import { heightmapFragmentShader } from "./shaders/heightmapFragmentShader.js"
+import { heightmapFragmentShader } from "./shader/gpgpu/heightmapFragmentShader.js"
 
 import ModifiedShader from "./ModifiedShader.jsx"
 
@@ -18,7 +18,11 @@ const BOUNDS = 512
 
 const simplex = new SimplexNoise()
 
-export default function initWater() {
+export default function initWater({
+  scale = 1,
+  rotation = [0, 0, 0],
+  position = [0, 0, 0],
+}) {
   const { gl, camera } = useThree()
   const [heightmapTexture, setHeightmapTexture] = useState()
   let mouseMoved = false
@@ -33,9 +37,9 @@ export default function initWater() {
   const heightmapVariable = useRef()
 
   const envMap = useEnvironment({
-    files: "./environments/aerodynamics_workshop_2k.hdr",
+    files: "./hdri/aerodynamics_workshop_2k.hdr",
   })
-  // const envMap = useEnvironment({files:'./environments/envmap.hdr'})
+  // const envMap = useEnvironment({ files: "./hdri/envmap.hdr" })
 
   const [normalMap, roughnessMap, diffuseMap] = useTexture([
     "./textures/waternormals.jpeg",
@@ -81,7 +85,7 @@ export default function initWater() {
     materialRef.current.defines.WIDTH = WIDTH.toFixed(1)
     materialRef.current.defines.BOUNDS = BOUNDS.toFixed(1)
 
-    waterMeshRef.current.rotation.x = -Math.PI / 2
+    // waterMeshRef.current.rotation.x = -Math.PI / 2
 
     waterMeshRef.current.updateMatrix()
 
@@ -193,16 +197,23 @@ export default function initWater() {
 
   return (
     <>
-      <OrbitControls />
-
       {/*  Mesh just for mouse raycasting */}
 
-      <mesh ref={meshRayRef} matrixAutoUpdate={false}>
+      <mesh
+        scale={scale}
+        rotation={rotation}
+        position={position}
+        ref={meshRayRef}
+        matrixAutoUpdate={false}
+      >
         <planeGeometry args={[BOUNDS, BOUNDS, 1, 1]} />
         <meshBasicMaterial color={0xffffff} visible={false} side={DoubleSide} />
       </mesh>
 
       <mesh
+        scale={scale}
+        rotation={rotation}
+        position={position}
         onPointerMove={onPointerMove}
         ref={waterMeshRef}
         matrixAutoUpdate={false}
