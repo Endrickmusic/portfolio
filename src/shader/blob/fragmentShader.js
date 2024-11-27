@@ -110,7 +110,7 @@ vec3 sat(vec3 rgb, float intensity) {
 
 		float iorRatio = uIOR;
 		float aspect = uResolution.x / uResolution.y;
-		vec2 uv = vUv.xy / aspect;
+		vec2 uv = vUv.xy;
 		vec3 ro = vRayOrigin.xyz;
 		vec3 hitPos = vec3(vHitPos.x * aspect, vHitPos.y, vHitPos.z);
 		vec3 rd = normalize(hitPos - ro); 
@@ -143,9 +143,15 @@ vec3 sat(vec3 rgb, float intensity) {
 				// color.r += textureCube(iChannel0, refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).r;
 				// color.g += textureCube(iChannel0, refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).g;
 				// color.b += textureCube(iChannel0, refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).b;
-				color.r += texture2D(uTexture, (refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).xy).r;
-				color.g += texture2D(uTexture, (refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).xy).g;
-				color.b += texture2D(uTexture, (refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).xy).b;
+				// color.r += texture2D(uTexture, (refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).xy).r;
+				// color.g += texture2D(uTexture, (refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).xy).g;
+				// color.b += texture2D(uTexture, (refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).xy).b;
+				// color.r += texture2D(uTexture, uv + (refractVecR * (uRefract + slide * 1.0) + uChromaticAberration).xy).r;
+				// color.g += texture2D(uTexture, uv + (refractVecG * (uRefract + slide * 2.0) + uChromaticAberration).xy).g;
+				// color.b += texture2D(uTexture, uv + (refractVecB * (uRefract + slide * 3.0) + uChromaticAberration).xy).b;
+				color.r += texture2D(uTexture, uv + (refractVecR * slide * 1.0 + uChromaticAberration).xy).r;
+				color.g += texture2D(uTexture, uv + (refractVecG * slide * 2.0 + uChromaticAberration).xy).g;
+				color.b += texture2D(uTexture, uv + (refractVecB * slide * 3.0 + uChromaticAberration).xy).b;
 
 				color = sat(color, uSaturation);
 			}

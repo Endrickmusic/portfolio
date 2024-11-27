@@ -14,7 +14,7 @@ import fragmentShader from "./shader/blob/fragmentShader.js"
 import { Vector2, Matrix4 } from "three"
 import useShaderMaterial from "./hooks/useShaderMaterial.jsx"
 
-export default function Shader({ position }) {
+export default function Shader({ position, uSize = 0.005 }) {
   const meshRef = useRef()
   const buffer = useFBO()
   const viewport = useThree((state) => state.viewport)
@@ -39,20 +39,19 @@ export default function Shader({ position }) {
   // Memoize controls
   const controls = useControls({
     reflection: { value: 1.5, min: 0.01, max: 6.0, step: 0.1 },
-    speed: { value: 0.5, min: 0.01, max: 3.0, step: 0.01 },
-    IOR: { value: 0.98, min: 0.01, max: 2.0, step: 0.01 },
-    count: { value: 3, min: 1, max: 20, step: 1 },
-    size: { value: 0.2, min: 0.1, max: 2.5, step: 0.01 },
-    dispersion: { value: 0.03, min: 0.0, max: 0.1, step: 0.001 },
-    refract: { value: 1.1, min: -10.0, max: 10.0, step: 0.1 },
+    speed: { value: 0.17, min: 0.01, max: 3.0, step: 0.01 },
+    IOR: { value: 0.55, min: 0.01, max: 2.0, step: 0.01 },
+    count: { value: 5, min: 1, max: 20, step: 1 },
+    dispersion: { value: 0.08, min: 0.0, max: 0.1, step: 0.001 },
+    refract: { value: 1.6, min: -10.0, max: 10.0, step: 0.1 },
     chromaticAberration: {
-      value: 0.18,
+      value: 0.0,
       min: 0,
       max: 1.5,
       step: 0.01,
     },
     saturation: { value: 1.05, min: 1, max: 1.25, step: 0.01 },
-    pointerSize: { value: 0.05, min: 0.01, max: 1.0, step: 0.1 },
+    pointerSize: { value: 0.1, min: 0.01, max: 1.0, step: 0.1 },
   })
 
   // Destructure controls for use in useFrame
@@ -61,7 +60,6 @@ export default function Shader({ position }) {
     speed,
     IOR,
     count,
-    size,
     dispersion,
     refract,
     chromaticAberration,
@@ -109,7 +107,6 @@ export default function Shader({ position }) {
     meshRef.current.material.uniforms.uSpeed.value = controls.speed
     meshRef.current.material.uniforms.uIOR.value = controls.IOR
     meshRef.current.material.uniforms.uCount.value = controls.count
-    meshRef.current.material.uniforms.uSize.value = controls.size
     meshRef.current.material.uniforms.uDispersion.value = controls.dispersion
     meshRef.current.material.uniforms.uRefract.value = controls.refract
     meshRef.current.material.uniforms.uChromaticAberration.value =
@@ -134,6 +131,7 @@ export default function Shader({ position }) {
       mousePosition.current.y
     )
     mesh.material.uniforms.uTime.value = time * controls.speed
+    meshRef.current.material.uniforms.uSize.value = uSize
 
     // FBO rendering
     gl.setRenderTarget(buffer)
