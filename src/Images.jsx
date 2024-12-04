@@ -41,9 +41,9 @@ export default function Images() {
         url="./img/more_money_02.png"
       />
       <ComputeShader
-        position={[1.5, -height, 2]}
-        scale={0.006}
-        rotation={[2 * Math.PI, 0, 0]}
+        position={[1.9, -height, 2]}
+        scale={0.0055}
+        rotation={[1.9 * Math.PI, -0.15 * Math.PI, 0]}
       />
       <Image
         position={[0, -height * 1.5, 7.5]}
