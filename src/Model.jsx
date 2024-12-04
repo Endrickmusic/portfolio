@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react"
-import { useGLTF, useAnimations } from "@react-three/drei"
+import { useGLTF, useAnimations, useScroll } from "@react-three/drei"
+import { useFrame } from "@react-three/fiber"
 
 export default function Model(props) {
   const group = useRef()
@@ -7,14 +8,29 @@ export default function Model(props) {
     "./models/Montane_model_04.glb"
   )
   const { actions } = useAnimations(animations, group)
+  const scrolling = useScroll()
 
   useEffect(() => {
-    if (actions) {
-      Object.values(actions).forEach((action) => {
-        action.play()
-      })
-    }
+    // Pause all animations
+    Object.values(actions).forEach((action) => {
+      if (action) {
+        action.play().paused = true
+      }
+    })
   }, [actions])
+
+  // Use useFrame to update animation based on scroll
+  useFrame(() => {
+    const scroll = scrolling.offset
+    const maxScroll = 0.99
+    Object.values(actions).forEach((action) => {
+      if (action) {
+        const duration = action.getClip().duration
+        action.time = duration * Math.min(scroll, maxScroll)
+        action.paused = false
+      }
+    })
+  })
 
   return (
     <group ref={group} {...props} dispose={null}>
