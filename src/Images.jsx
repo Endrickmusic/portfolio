@@ -46,7 +46,7 @@ export default function Images() {
         rotation={[1.9 * Math.PI, -0.15 * Math.PI, 0]}
       />
       <Image
-        position={[0, -height * 1.5, 7.5]}
+        position={[1, -height * 1.5, 7.5]}
         scale={[1.5, 3, 1]}
         url="./img/ocean_iridescent_05.png"
       />

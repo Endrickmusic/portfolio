@@ -53,7 +53,7 @@ export default function App() {
           <Images />
           <Shader position={[0, 0, 3]} uSize={0.6} />
           <Shader position={[0, -1, 7]} uSize={0.005} />
-          <Model scale={0.028} position={[0, -1.2, 5]} />
+          <Model scale={0.1} position={[-1, -12, 3]} rotation={[0, 1.1, 0]} />
         </Scroll>
         <Scroll html>
           <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>
