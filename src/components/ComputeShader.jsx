@@ -6,7 +6,7 @@ import { useEnvironment, useTexture, OrbitControls } from "@react-three/drei"
 import { SimplexNoise } from "three/addons/math/SimplexNoise.js"
 import { useControls } from "leva"
 
-import { heightmapFragmentShader } from "./shader/gpgpu/heightmapFragmentShader.js"
+import { heightmapFragmentShader } from "../shader/gpgpu/heightmapFragmentShader.js"
 
 import ModifiedShader from "./ModifiedShader.jsx"
 

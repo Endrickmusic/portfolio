@@ -9,10 +9,10 @@ import { useFrame, useThree } from "@react-three/fiber"
 import { useRef, useMemo, useEffect, useCallback, useState } from "react"
 import { useControls, Leva } from "leva"
 
-import vertexShader from "./shader/blob/vertexShader.js"
-import fragmentShader from "./shader/blob/fragmentShader.js"
+import vertexShader from "../shader/blob/vertexShader.js"
+import fragmentShader from "../shader/blob/fragmentShader.js"
 import { Vector2, Matrix4 } from "three"
-import useShaderMaterial from "./hooks/useShaderMaterial.jsx"
+import useShaderMaterial from "../hooks/useShaderMaterial.jsx"
 
 export default function Shader({ position, uSize = 0.005 }) {
   const meshRef = useRef()
