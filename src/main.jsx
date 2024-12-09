@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client"
 import Logo from "/face-blowing-a-kiss.svg"
 import "./index.css"
-import App from "./App"
+import App from "./pages/App"
 
 function Overlay() {
   return (

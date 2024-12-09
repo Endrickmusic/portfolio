@@ -1,22 +1,13 @@
-import React, { useState } from "react"
-import * as THREE from "three"
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
-import {
-  Scroll,
-  Preload,
-  ScrollControls,
-  Plane,
-  Environment,
-} from "@react-three/drei"
+import { Scroll, Preload, ScrollControls, Environment } from "@react-three/drei"
 import { Leva } from "leva"
 
-import Images from "./Images.jsx"
-import Lens from "./Lens.jsx"
-import Typography from "./Typo.jsx"
-import Shader from "./Shader.jsx"
-import Model from "./model.jsx"
-import Tooltip from "./Tooltip"
+import Images from "../components/Images.jsx"
+import Typography from "../components/Typo.jsx"
+import Shader from "../components/Shader.jsx"
+import Model from "../components/model.jsx"
+import Tooltip from "../components/Tooltip"
 
 function ResizeHandler() {
   const { gl, camera } = useThree()
@@ -57,6 +48,7 @@ export default function App() {
 
   return (
     <>
+      <Leva hidden={true} />
       <Canvas
         camera={{
           position: [0, 0, 20],
