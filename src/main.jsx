@@ -1,4 +1,5 @@
 import { createRoot } from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
 import Logo from "/face-blowing-a-kiss.svg"
 import "./index.css"
 import App from "./pages/App"
@@ -48,7 +49,7 @@ function Overlay() {
 }
 
 createRoot(document.getElementById("root")).render(
-  <>
+  <BrowserRouter>
     <App />
     <Overlay />
     <img
@@ -56,5 +57,5 @@ createRoot(document.getElementById("root")).render(
       style={{ position: "absolute", bottom: 30, left: 40, width: 80 }}
       scale={1.5}
     />
-  </>
+  </BrowserRouter>
 )

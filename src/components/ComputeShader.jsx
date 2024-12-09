@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react"
 import { useThree, useFrame } from "@react-three/fiber"
 import { Vector2, Raycaster, DoubleSide } from "three"
 import { GPUComputationRenderer } from "three/addons/misc/GPUComputationRenderer.js"
-import { useEnvironment, useTexture, OrbitControls } from "@react-three/drei"
+import { useEnvironment, useTexture } from "@react-three/drei"
 import { SimplexNoise } from "three/addons/math/SimplexNoise.js"
 import { useControls } from "leva"
 
