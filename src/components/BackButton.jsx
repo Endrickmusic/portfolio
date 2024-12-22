@@ -8,7 +8,7 @@ export default function BackButton() {
       onClick={() => navigate("/")}
       style={{
         position: "fixed",
-        top: "20px",
+        top: "80px",
         left: "20px",
         padding: "10px 20px",
         backgroundColor: "#333",

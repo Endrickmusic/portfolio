@@ -2,15 +2,21 @@ import { useCallback, useEffect, useState } from "react"
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { Scroll, Preload, ScrollControls, Environment } from "@react-three/drei"
 import { Leva } from "leva"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, useNavigate } from "react-router-dom"
 
 import Images from "../components/Images.jsx"
 import Typography from "../components/Typo.jsx"
 import Shader from "../components/Shader.jsx"
 import Model from "../components/model.jsx"
 import Tooltip from "../components/Tooltip"
+
 import Page01 from "./Page_01.jsx"
 import Page02 from "./Page_02.jsx"
+import Page03 from "./Page_03.jsx"
+import Page04 from "./Page_04.jsx"
+import Page05 from "./Page_05.jsx"
+import Page06 from "./Page_06.jsx"
+import About from "./About.jsx"
 
 function ResizeHandler() {
   const { gl, camera } = useThree()
@@ -36,6 +42,8 @@ export default function App() {
     text: "",
     position: { x: 0, y: 0 },
   })
+
+  const navigate = useNavigate()
 
   const handlePointerOver = (event, text) => {
     setTooltip({
@@ -72,13 +80,22 @@ export default function App() {
                   <Typography />
                   <Images />
                   <Shader position={[0, 0, 3]} uSize={0.6} />
-                  <Shader position={[0, -1, 7]} uSize={0.005} />
+                  {/* <Shader position={[0, -1, 7]} uSize={0.005} /> */}
                   <Model
                     scale={0.1}
                     position={[-1, -12, 3]}
                     rotation={[0, 1.1, 0]}
-                    onPointerOver={(e) => handlePointerOver(e, "Model")}
-                    onPointerOut={handlePointerOut}
+                    onPointerEnter={(e) => handlePointerOver(e, "Model")}
+                    onPointerLeave={handlePointerOut}
+                    onPointerOver={(e) => {
+                      document.body.style.cursor = "pointer"
+                      e.stopPropagation()
+                    }}
+                    onPointerOut={(e) => {
+                      document.body.style.cursor = "auto"
+                      e.stopPropagation()
+                    }}
+                    onClick={() => navigate("/page5")}
                   />
                 </Scroll>
                 <Scroll html>
@@ -107,6 +124,11 @@ export default function App() {
         />
         <Route path="/page1" element={<Page01 />} />
         <Route path="/page2" element={<Page02 />} />
+        <Route path="/page3" element={<Page03 />} />
+        <Route path="/page4" element={<Page04 />} />
+        <Route path="/page5" element={<Page05 />} />
+        <Route path="/page6" element={<Page06 />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       {tooltip.visible && (
         <Tooltip position={tooltip.position} text={tooltip.text} />

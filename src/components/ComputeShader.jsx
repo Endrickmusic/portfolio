@@ -22,6 +22,11 @@ export default function initWater({
   scale = 1,
   rotation = [0, 0, 0],
   position = [0, 0, 0],
+  onPointerEnter,
+  onPointerLeave,
+  onPointerOver,
+  onPointerOut,
+  onClick,
 }) {
   const { gl, camera } = useThree()
   const [heightmapTexture, setHeightmapTexture] = useState()
@@ -89,7 +94,7 @@ export default function initWater({
 
     waterMeshRef.current.updateMatrix()
 
-    meshRayRef.current.rotation.x = -Math.PI / 2
+    meshRayRef.current.rotation.x = 0
 
     meshRayRef.current.updateMatrix()
 
@@ -205,6 +210,11 @@ export default function initWater({
         position={position}
         ref={meshRayRef}
         matrixAutoUpdate={false}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
+        onPointerOver={onPointerOver}
+        onPointerOut={onPointerOut}
+        onClick={onClick}
       >
         <planeGeometry args={[BOUNDS, BOUNDS, 1, 1]} />
         <meshBasicMaterial color={0xffffff} visible={false} side={DoubleSide} />

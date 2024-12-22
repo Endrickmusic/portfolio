@@ -32,12 +32,12 @@ export default function Images() {
 
   const imageLabels = [
     "Color Cube",
-    "Crystal",
+    "Vellum Dance",
     "Dispersion",
-    "More Money",
-    "Compute Shader",
+    "Kudamm Money",
+    "About",
     "Ocean Iridescent",
-    "No HDRI",
+    "Cloud",
   ]
 
   const imagePositions = [
@@ -104,7 +104,7 @@ export default function Images() {
         position={[-0.6, -height, 9]}
         scale={[1, 2, 1]}
         url="./img/more_money_02.png"
-        onClick={() => handleClick("/page1")}
+        onClick={() => handleClick("/page4")}
         onPointerEnter={() => setHoveredIndex(3)}
         onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
@@ -120,7 +120,7 @@ export default function Images() {
         position={[1.9, -height, 2]}
         scale={0.0055}
         rotation={[1.9 * Math.PI, -0.15 * Math.PI, 0]}
-        onClick={() => handleClick("/page1")}
+        onClick={() => handleClick("/about")}
         onPointerEnter={() => setHoveredIndex(4)}
         onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
@@ -136,7 +136,7 @@ export default function Images() {
         position={[1, -height * 1.5, 7.5]}
         scale={[1.5, 3, 1]}
         url="./img/ocean_iridescent_05.png"
-        onClick={() => handleClick("/page1")}
+        onClick={() => handleClick("/page3")}
         onPointerEnter={() => setHoveredIndex(5)}
         onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
@@ -152,7 +152,7 @@ export default function Images() {
         position={[0, -height * 2 - height / 4, 0]}
         scale={[width / 2, height / 1.1, 1]}
         url="./img/nohdri0114.png"
-        onClick={() => handleClick("/page1")}
+        onClick={() => handleClick("/page6")}
         onPointerEnter={() => setHoveredIndex(6)}
         onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
