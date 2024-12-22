@@ -6,48 +6,25 @@ import App from "./pages/App"
 
 function Overlay({ email, title, date, showLogo = true }) {
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        pointerEvents: "none",
-        width: "100%",
-        height: "100%",
-      }}
-    >
+    <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
       <a
         href={`mailto:${email}`}
-        style={{
-          position: "absolute",
-          bottom: 40,
-          left: 140,
-          fontSize: "20px",
-          pointerEvents: "auto",
-        }}
+        className="absolute bottom-10 left-40 sans-serif text-2xl pointer-events-auto"
       >
         contact
         <br />
         {email.split("@")[0]}
       </a>
-      <div
-        style={{ position: "absolute", top: 40, left: 40, fontSize: "20px" }}
-      >
+      <div className="absolute top-7 left-10 sans-serif text-2xl pointer-events-auto">
         {title}
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 40,
-          right: 40,
-          fontSize: "20px",
-        }}
-      >
+      <div className="absolute bottom-6 right-10 serif text-2xl pointer-events-auto">
         {date}
       </div>
       {showLogo && (
         <img
           src={Logo}
+          // className="absolute bottom-30 left-40 w-20"
           style={{ position: "absolute", bottom: 30, left: 40, width: 80 }}
           scale={1.5}
         />
