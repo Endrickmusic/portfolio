@@ -99,15 +99,24 @@ export default function App() {
                   />
                 </Scroll>
                 <Scroll html>
-                  <div style={{ transform: "translate3d(65vw, 30vh, 0)" }}>
+                  <div
+                    className="serif text-2xl"
+                    style={{ transform: "translate3d(65vw, 30vh, 0)" }}
+                  >
                     Lorem ipsum dolor sit amet,
                     <br />
                     consectetur adipiscing elit.
                   </div>
-                  <div style={{ transform: "translate3d(15vw, 120vh, 0)" }}>
+                  <div
+                    className="serif text-2xl"
+                    style={{ transform: "translate3d(15vw, 120vh, 0)" }}
+                  >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   </div>
-                  <div style={{ transform: "translate3d(85vw, 250vh, 0)" }}>
+                  <div
+                    className="serif text-2xl"
+                    style={{ transform: "translate3d(85vw, 250vh, 0)" }}
+                  >
                     Lorem ipsum
                     <br />
                     dolor sit amet,

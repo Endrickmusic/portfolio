@@ -3,6 +3,7 @@ import React from "react"
 const Tooltip = ({ position, text }) => {
   return (
     <div
+      className="sans-serif text-2xl"
       style={{
         position: "absolute",
         left: position.x,
