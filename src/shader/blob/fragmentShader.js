@@ -64,7 +64,7 @@ float opSmoothUnion( float d1, float d2, float k ) {
 float GetDist(vec3 p) {
 	float d = 1e5;
 
-	vec3 mousePos = vec3(uMouse.x * (uResolution.x/uResolution.y) * 0.5, uMouse.y * 0.5, 0.0);
+	vec3 mousePos = vec3(uMouse.x * (uResolution.x/uResolution.y) * 0.5, uMouse.y * 0.5, 0.25);
     d = sphere(p - mousePos, uPointerSize);
 
 

@@ -4,7 +4,7 @@ import Logo from "/face-blowing-a-kiss.svg"
 import "./index.css"
 import App from "./pages/App"
 
-function Overlay() {
+function Overlay({ email, title, date, showLogo = true }) {
   return (
     <div
       style={{
@@ -17,22 +17,23 @@ function Overlay() {
       }}
     >
       <a
-        href="mailto:mail@christianhohenbild.de"
+        href={`mailto:${email}`}
         style={{
           position: "absolute",
           bottom: 40,
           left: 140,
           fontSize: "20px",
+          pointerEvents: "auto",
         }}
       >
         contact
         <br />
-        Christian Hohenbild
+        {email.split("@")[0]}
       </a>
       <div
         style={{ position: "absolute", top: 40, left: 40, fontSize: "20px" }}
       >
-        Creative Whatever
+        {title}
       </div>
       <div
         style={{
@@ -42,8 +43,15 @@ function Overlay() {
           fontSize: "20px",
         }}
       >
-        20/11/2024
+        {date}
       </div>
+      {showLogo && (
+        <img
+          src={Logo}
+          style={{ position: "absolute", bottom: 30, left: 40, width: 80 }}
+          scale={1.5}
+        />
+      )}
     </div>
   )
 }
@@ -51,11 +59,10 @@ function Overlay() {
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <App />
-    <Overlay />
-    <img
-      src={Logo}
-      style={{ position: "absolute", bottom: 30, left: 40, width: 80 }}
-      scale={1.5}
+    <Overlay
+      email="mail@christianhohenbild.de"
+      title="Creative Whatever"
+      date="09/12/2024"
     />
   </BrowserRouter>
 )

@@ -9,8 +9,8 @@ import Typography from "../components/Typo.jsx"
 import Shader from "../components/Shader.jsx"
 import Model from "../components/model.jsx"
 import Tooltip from "../components/Tooltip"
-import Page01 from "./Page_01"
-import Page02 from "./Page_02"
+import Page01 from "./Page_01.jsx"
+import Page02 from "./Page_02.jsx"
 
 function ResizeHandler() {
   const { gl, camera } = useThree()

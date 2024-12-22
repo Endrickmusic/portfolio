@@ -1,6 +1,6 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
-import { Image, useScroll } from "@react-three/drei"
+import { Image, useScroll, Html } from "@react-three/drei"
 import { useNavigate } from "react-router-dom"
 
 import ComputeShader from "./ComputeShader.jsx"
@@ -9,6 +9,7 @@ export default function Images() {
   const navigate = useNavigate()
   const group = useRef()
   const data = useScroll()
+  const [hovered, setHovered] = useState(false)
   const { width, height } = useThree((state) => state.viewport)
   useFrame(() => {
     group.current.children[0].material.zoom = 1 + data.range(0, 1 / 3) / 3
@@ -36,6 +37,8 @@ export default function Images() {
         scale={[4, height, 1]}
         url="./img/Colorcube_octane_15.png"
         onClick={() => handleClick("/page1")}
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => setHovered(false)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -129,6 +132,27 @@ export default function Images() {
           e.stopPropagation()
         }}
       />
+      {hovered && (
+        <Html>
+          <div
+            style={{
+              position: "fixed",
+              // left: "10%", // Center horizontally
+              // top: "30%", // Adjust vertical position as needed
+              background: "white",
+              border: "1px solid black",
+              padding: "10px 20px",
+              color: "#000000",
+              borderRadius: "1px",
+              transform: "translate(-350%, -350%)", // Center the tag
+              pointerEvents: "none",
+              zIndex: 1000,
+            }}
+          >
+            Hover Tag
+          </div>
+        </Html>
+      )}
     </group>
   )
 }
