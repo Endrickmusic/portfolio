@@ -9,7 +9,7 @@ export default function Images() {
   const navigate = useNavigate()
   const group = useRef()
   const data = useScroll()
-  const [hovered, setHovered] = useState(false)
+  const [hoveredIndex, setHoveredIndex] = useState(-1)
   const { width, height } = useThree((state) => state.viewport)
   useFrame(() => {
     group.current.children[0].material.zoom = 1 + data.range(0, 1 / 3) / 3
@@ -30,6 +30,26 @@ export default function Images() {
     navigate(path)
   }
 
+  const imageLabels = [
+    "Color Cube",
+    "Crystal",
+    "Dispersion",
+    "More Money",
+    "Compute Shader",
+    "Ocean Iridescent",
+    "No HDRI",
+  ]
+
+  const imagePositions = [
+    [-2, 0, 0],
+    [2, 0, 3],
+    [-2.05, -height * 1.5, 6],
+    [-0.6, -height * 1.5, 9],
+    [1.9, -height * 1.5, 2],
+    [1, -height * 2.2, 7.5],
+    [0, -height * 3.5, 0],
+  ]
+
   return (
     <group ref={group}>
       <Image
@@ -37,8 +57,8 @@ export default function Images() {
         scale={[4, height, 1]}
         url="./img/Colorcube_octane_15.png"
         onClick={() => handleClick("/page1")}
-        onPointerEnter={() => setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
+        onPointerEnter={() => setHoveredIndex(0)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -53,6 +73,8 @@ export default function Images() {
         scale={3}
         url="./img/crystal_9.png"
         onClick={() => handleClick("/page2")}
+        onPointerEnter={() => setHoveredIndex(1)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -67,6 +89,8 @@ export default function Images() {
         scale={[1, 3, 1]}
         url="./img/dispersion_octane_08.png"
         onClick={() => handleClick("/page3")}
+        onPointerEnter={() => setHoveredIndex(2)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -81,6 +105,8 @@ export default function Images() {
         scale={[1, 2, 1]}
         url="./img/more_money_02.png"
         onClick={() => handleClick("/page1")}
+        onPointerEnter={() => setHoveredIndex(3)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -95,6 +121,8 @@ export default function Images() {
         scale={0.0055}
         rotation={[1.9 * Math.PI, -0.15 * Math.PI, 0]}
         onClick={() => handleClick("/page1")}
+        onPointerEnter={() => setHoveredIndex(4)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -109,6 +137,8 @@ export default function Images() {
         scale={[1.5, 3, 1]}
         url="./img/ocean_iridescent_05.png"
         onClick={() => handleClick("/page1")}
+        onPointerEnter={() => setHoveredIndex(5)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -123,6 +153,8 @@ export default function Images() {
         scale={[width / 2, height / 1.1, 1]}
         url="./img/nohdri0114.png"
         onClick={() => handleClick("/page1")}
+        onPointerEnter={() => setHoveredIndex(6)}
+        onPointerLeave={() => setHoveredIndex(-1)}
         onPointerOver={(e) => {
           document.body.style.cursor = "pointer"
           e.stopPropagation()
@@ -132,24 +164,28 @@ export default function Images() {
           e.stopPropagation()
         }}
       />
-      {hovered && (
-        <Html>
+      {hoveredIndex !== -1 && (
+        <Html
+          position={imagePositions[hoveredIndex]}
+          style={{
+            pointerEvents: "none",
+          }}
+          center
+        >
           <div
             style={{
-              position: "fixed",
-              // left: "10%", // Center horizontally
-              // top: "30%", // Adjust vertical position as needed
               background: "white",
               border: "1px solid black",
               padding: "10px 20px",
               color: "#000000",
               borderRadius: "1px",
-              transform: "translate(-350%, -350%)", // Center the tag
+              transform: "translate(0, -100%)",
+              whiteSpace: "nowrap",
               pointerEvents: "none",
               zIndex: 1000,
             }}
           >
-            Hover Tag
+            {imageLabels[hoveredIndex]}
           </div>
         </Html>
       )}
