@@ -7,7 +7,7 @@ import { Routes, Route, useNavigate } from "react-router-dom"
 import Images from "../components/Images.jsx"
 import Typography from "../components/Typo.jsx"
 import Shader from "../components/Shader.jsx"
-import Model from "../components/model.jsx"
+import Model from "../components/Model_Instances.jsx"
 import Tooltip from "../components/Tooltip"
 
 import Page01 from "./Page_01.jsx"
