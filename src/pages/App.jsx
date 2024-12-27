@@ -9,6 +9,7 @@ import Typography from "../components/Typo.jsx"
 import Shader from "../components/Shader.jsx"
 import Model from "../components/Model_Instances.jsx"
 import Tooltip from "../components/Tooltip"
+import Particles from "../components/Particles.jsx"
 
 import Page01 from "./Page_01.jsx"
 import Page02 from "./Page_02.jsx"
@@ -97,6 +98,7 @@ export default function App() {
                     }}
                     onClick={() => navigate("/page5")}
                   />
+                  <Particles />
                 </Scroll>
                 <Scroll html>
                   <div
