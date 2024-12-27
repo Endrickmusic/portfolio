@@ -98,7 +98,7 @@ export default function App() {
                     }}
                     onClick={() => navigate("/page5")}
                   />
-                  <Particles />
+                  <Particles position={[0, -5, 8]} />
                 </Scroll>
                 <Scroll html>
                   <div

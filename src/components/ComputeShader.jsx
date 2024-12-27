@@ -27,6 +27,8 @@ export default function initWater({
   onPointerOver,
   onPointerOut,
   onClick,
+  diffuseMap,
+  color = 0x2277ff,
 }) {
   const { gl, camera } = useThree()
   const [heightmapTexture, setHeightmapTexture] = useState()
@@ -46,7 +48,7 @@ export default function initWater({
   })
   // const envMap = useEnvironment({ files: "./hdri/envmap.hdr" })
 
-  const [normalMap, roughnessMap, diffuseMap] = useTexture([
+  const [normalMap, roughnessMap] = useTexture([
     "./textures/waternormals.jpeg",
     "./textures/SurfaceImperfections003_1K_var1.jpg",
     "./textures/Portrait_02.jpg",
@@ -241,7 +243,7 @@ export default function initWater({
           normalMap={normalMap}
           normalScale={options.NormalMapScale}
           lights={true}
-          color={0xccccff}
+          color={color}
         />
       </mesh>
 

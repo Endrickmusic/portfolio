@@ -12,7 +12,7 @@ export default function Images() {
   const [hoveredIndex, setHoveredIndex] = useState(-1)
   const { width, height } = useThree((state) => state.viewport)
   useFrame(() => {
-    group.current.children[0].material.zoom = 1 + data.range(0, 1 / 3) / 3
+    group.current.children[0].material.zoom = 1.2 - data.range(0, 1 / 3) / 3
     group.current.children[1].material.zoom = 1 + data.range(0, 1 / 3) / 3
     group.current.children[2].material.zoom =
       1 + data.range(1.15 / 3, 1 / 3) / 2
@@ -71,7 +71,7 @@ export default function Images() {
       <Image
         position={[2, 0, 3]}
         scale={3}
-        url="./img/crystal_9.png"
+        url="./img/vellum_dance.png"
         onClick={() => handleClick("/page2")}
         onPointerEnter={() => setHoveredIndex(1)}
         onPointerLeave={() => setHoveredIndex(-1)}
@@ -84,7 +84,7 @@ export default function Images() {
           e.stopPropagation()
         }}
       />
-      <Image
+      {/* <Image
         position={[-2.05, -height, 6]}
         scale={[1, 3, 1]}
         url="./img/dispersion_octane_08.png"
@@ -99,11 +99,11 @@ export default function Images() {
           document.body.style.cursor = "auto"
           e.stopPropagation()
         }}
-      />
+      /> */}
       <Image
-        position={[-0.6, -height, 9]}
-        scale={[1, 2, 1]}
-        url="./img/more_money_02.png"
+        position={[-1.1, -height, 9]}
+        scale={[1.2, 2.3, 1.2]}
+        url="./img/kudamm_05.png"
         onClick={() => handleClick("/page4")}
         onPointerEnter={() => setHoveredIndex(3)}
         onPointerLeave={() => setHoveredIndex(-1)}
@@ -117,7 +117,7 @@ export default function Images() {
         }}
       />
       <ComputeShader
-        position={[1.9, -height, 2]}
+        position={[1.9, -height * 0.75, 2]}
         scale={0.0055}
         rotation={[1.9 * Math.PI, -0.15 * Math.PI, 0]}
         onClick={() => handleClick("/about")}

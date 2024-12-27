@@ -15,7 +15,7 @@ import "../shader/particles/renderMaterial.js"
 
 import { generatePositions, infoArray } from "../components/dataTextures.jsx"
 
-export default function Particles({ size = 64 }) {
+export default function Particles({ size = 128, position = [0, -4, 3] }) {
   const simRef = useRef()
   const renderRef = useRef()
   const mouseRef = useRef()
@@ -125,7 +125,7 @@ export default function Particles({ size = 64 }) {
         <meshBasicMaterial />
       </mesh>
 
-      <points scale={[1, 1, 1]} position={[0, -4, 3]}>
+      <points scale={[1, 1, 1]} position={position}>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"

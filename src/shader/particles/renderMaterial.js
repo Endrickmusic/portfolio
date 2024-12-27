@@ -29,7 +29,7 @@ const RenderMaterial = shaderMaterial(
     vColor = vec4( 0.5 + 0.45 * sin(angle + uTime) );
 
     vec4 mvPosition = modelViewMatrix * vec4( pos.xyz, 1.0 );
-    gl_PointSize = 155. * ( 1. / - mvPosition.z );
+    gl_PointSize = 55. * ( 1. / - mvPosition.z );
     gl_Position = projectionMatrix * mvPosition;
     vRef = ref;
 }
@@ -52,7 +52,7 @@ const RenderMaterial = shaderMaterial(
     vec4 info = texture2D(uInfo, vRef);
     // Time varying pixel color
     // vec3 col = 0.5 + 0.5 * cos(uTime + vRef.xyx + vec3(0,2,4));
-    vec3 col = info.x + info.y * cos(uTime + vRef.xyx + vec3(0,2,4));
+    vec3 col = 1.0 - info.x + info.y * cos(uTime + vRef.xyx + vec3(0,2,4));
     
     // vec4 pos = texture2D(uPositions, vRef);
 
