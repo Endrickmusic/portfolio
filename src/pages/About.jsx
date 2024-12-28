@@ -37,7 +37,7 @@ export default function About() {
       </div>
 
       <img
-        src="/textures/Portrait_02.jpg"
+        src="./textures/Portrait_02.jpg"
         alt="Portrait"
         style={{
           maxWidth: "30%",
