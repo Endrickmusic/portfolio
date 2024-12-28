@@ -28,7 +28,7 @@ export default function Page06() {
           loop
           playsInline
         >
-          <source src="/video/Cloud.mp4" type="video/mp4" />
+          <source src="./video/Cloud.mp4" type="video/mp4" />
         </video>
       </div>
       {/* Your page content */}

@@ -28,7 +28,7 @@ export default function Page02() {
           loop
           playsInline
         >
-          <source src="/video/Vellum_dance.mp4" type="video/mp4" />
+          <source src="./video/Vellum_dance.mp4" type="video/mp4" />
         </video>
       </div>
       {/* Your page content */}

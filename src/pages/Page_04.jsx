@@ -27,7 +27,7 @@ export default function Page04() {
           loop
           playsInline
         >
-          <source src="/video/Kudamm_Money.mp4" type="video/mp4" />
+          <source src="./video/Kudamm_Money.mp4" type="video/mp4" />
         </video>
       </div>
       {/* Your page content */}

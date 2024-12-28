@@ -28,7 +28,10 @@ export default function Page05() {
           loop
           playsInline
         >
-          <source src="/video/Procedural_Building_Rigid.mp4" type="video/mp4" />
+          <source
+            src="./video/Procedural_Building_Rigid.mp4"
+            type="video/mp4"
+          />
         </video>
       </div>
       {/* Your page content */}

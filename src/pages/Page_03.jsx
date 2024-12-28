@@ -21,7 +21,7 @@ export default function Page03() {
             loop
             playsInline
           >
-            <source src="/video/Ocean.mp4" type="video/mp4" />
+            <source src="./video/Ocean.mp4" type="video/mp4" />
           </video>
         </div>
       </div>
