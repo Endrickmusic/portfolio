@@ -5,7 +5,7 @@ import App from "./pages/App"
 import { Overlay } from "./components/Overlay"
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/portfolio">
     <App />
     <Overlay
       email="mail@christianhohenbild.de"
