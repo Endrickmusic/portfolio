@@ -8,7 +8,7 @@ export default function Typography() {
     [0, 0, 12]
   )
   const shared = {
-    font: "/Inter-Regular.woff",
+    font: "./fonts/Inter-Regular.woff",
     letterSpacing: -0.07,
     color: "black",
   }

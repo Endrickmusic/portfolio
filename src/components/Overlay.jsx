@@ -1,4 +1,4 @@
-import Logo from "/face-blowing-a-kiss.svg"
+import Logo from "/svg/face-blowing-a-kiss.svg"
 
 export function Overlay({ email, title, date, showLogo = true }) {
   return (
