@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Leva } from "leva"
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Link, Outlet, useLocation } from "react-router-dom"
+import { Overlay } from "../components/Overlay"
 
 import Tooltip from "../components/Tooltip"
 
@@ -23,6 +24,21 @@ export default function App() {
   return (
     <>
       <Leva hidden={true} />
+      {/* Overlay route */}
+      <Routes>
+        <Route
+          path="/overlay"
+          element={
+            <Overlay
+              email="mail@christianhohenbild.de"
+              title="Creative Whatever"
+              date="09/12/2024"
+            />
+          }
+        />
+        <Route path="/" element={<Layout />} />
+      </Routes>
+
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/page1" element={<Page01 />} />
@@ -37,5 +53,55 @@ export default function App() {
         <Tooltip position={tooltip.position} text={tooltip.text} />
       )}
     </>
+  )
+}
+
+function Layout() {
+  const location = useLocation()
+
+  return (
+    <div className="absolute z-20">
+      <nav className="border-transparent">
+        <ul className="flex justify-start mx-6 m-3 space-x-5 border-transparent">
+          <li>
+            <Link
+              to="/"
+              className={location.pathname === "/" ? "underline" : ""}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className={location.pathname === "/about" ? "underline" : ""}
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/dashboard"
+              className={location.pathname === "/dashboard" ? "underline" : ""}
+            >
+              Dashboard
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/nothing-here"
+              className={
+                location.pathname === "/nothing-here" ? "underline" : ""
+              }
+            >
+              Nothing Here
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
+      <hr />
+      <Outlet />
+    </div>
   )
 }
