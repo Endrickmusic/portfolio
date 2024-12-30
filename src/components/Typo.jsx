@@ -15,18 +15,25 @@ export default function Typography() {
   return (
     <>
       <Text
-        children="Lorem"
+        children="3D Art"
         anchorX="left"
-        position={[-width / 2.5, -height / 10, 12]}
+        position={[-0.6, -0.35, 12]}
+        fontSize={0.7}
         {...shared}
       />
       <Text
-        children="Ipsum"
+        children="Coding"
         anchorX="right"
-        position={[width / 2.5, -height * 2, 12]}
+        position={[1.8, -6.0, 12]}
+        fontSize={0.7}
         {...shared}
       />
-      <Text children="dolor." position={[0, -height * 4.624, 12]} {...shared} />
+      <Text
+        children="Animation"
+        position={[0, -height * 4.66, 12]}
+        fontSize={0.8}
+        {...shared}
+      />
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { useFrame, useThree } from "@react-three/fiber"
-import { Image, useScroll, Html } from "@react-three/drei"
+import { Image, useScroll, Html, useTexture } from "@react-three/drei"
 import { useNavigate } from "react-router-dom"
 
 import ComputeShader from "./ComputeShader.jsx"
@@ -11,6 +11,8 @@ export default function Images() {
   const data = useScroll()
   const [hoveredIndex, setHoveredIndex] = useState(-1)
   const { width, height } = useThree((state) => state.viewport)
+
+  const diffuseMap = useTexture("./textures/Portrait_02.jpg")
   useFrame(() => {
     group.current.children[0].material.zoom = 1.2 - data.range(0, 1 / 3) / 3
     group.current.children[1].material.zoom = 1 + data.range(0, 1 / 3) / 3
@@ -43,11 +45,11 @@ export default function Images() {
   const imagePositions = [
     [-2, 0, 0],
     [2, 0, 3],
-    [-2.05, -height * 1.5, 6],
-    [-0.6, -height * 1.5, 9],
-    [1.9, -height * 1.5, 2],
-    [1, -height * 2.2, 7.5],
-    [0, -height * 3.5, 0],
+    [-2.05, -height * 2.4, 6],
+    [-0.6, -height * 2.4, 9],
+    [1.9, -height * 2.4, 2],
+    [1, -height * 3.4, 7.5],
+    [0, -height * 4.4, 0],
   ]
 
   return (
@@ -101,7 +103,7 @@ export default function Images() {
         }}
       /> */}
       <Image
-        position={[-1.1, -height, 9]}
+        position={[-1.6, -height * 1.0, 9]}
         scale={[1.2, 2.3, 1.2]}
         url="./img/kudamm_05.png"
         onClick={() => handleClick("/page4")}
@@ -117,9 +119,11 @@ export default function Images() {
         }}
       />
       <ComputeShader
-        position={[1.9, -height * 0.75, 2]}
-        scale={0.0055}
+        position={[2.3, -height * 0.9, 2.2]}
+        scale={0.0045}
         rotation={[1.9 * Math.PI, -0.15 * Math.PI, 0]}
+        diffuseMap={diffuseMap}
+        color="#ffffff"
         onClick={() => handleClick("/about")}
         onPointerEnter={() => setHoveredIndex(4)}
         onPointerLeave={() => setHoveredIndex(-1)}
@@ -133,8 +137,8 @@ export default function Images() {
         }}
       />
       <Image
-        position={[1, -height * 1.5, 7.5]}
-        scale={[1.5, 3, 1]}
+        position={[1.7, -height * 2.0, 7.5]}
+        scale={[1.3, 2.8, 0.8]}
         url="./img/ocean_iridescent_05.png"
         onClick={() => handleClick("/page3")}
         onPointerEnter={() => setHoveredIndex(5)}
@@ -149,8 +153,8 @@ export default function Images() {
         }}
       />
       <Image
-        position={[0, -height * 2 - height / 4, 0]}
-        scale={[width / 2, height / 1.1, 1]}
+        position={[0, -height * 2.04, 0]}
+        scale={[width / 2, height, 1]}
         url="./img/nohdri0114.png"
         onClick={() => handleClick("/page6")}
         onPointerEnter={() => setHoveredIndex(6)}

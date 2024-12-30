@@ -55,7 +55,7 @@ export default function Home() {
     >
       <ResizeHandler />
       <Environment files="./hdri/aerodynamics_workshop_2k.hdr" />
-      <ScrollControls damping={0.2} pages={3} distance={0.5}>
+      <ScrollControls damping={0.2} pages={3.0}>
         <Scroll>
           <Typography />
           <Images />
@@ -63,7 +63,7 @@ export default function Home() {
           {/* <Shader position={[0, -1, 7]} uSize={0.005} /> */}
           <Model
             scale={0.1}
-            position={[-1, -12, 3]}
+            position={[-1, -12.5, 3]}
             rotation={[0, 1.1, 0]}
             onPointerEnter={(e) => handlePointerOver(e, "Model")}
             onPointerLeave={handlePointerOut}
@@ -77,34 +77,43 @@ export default function Home() {
             }}
             onClick={() => navigate("/page5")}
           />
-          <Particles position={[0, -5, 8]} />
+          <Particles position={[-0.4, -5.6, 10]} scale={0.6} />
         </Scroll>
         <Scroll html>
           <div
             className="serif text-2xl"
             style={{ transform: "translate3d(65vw, 30vh, 0)" }}
           >
-            Lorem ipsum dolor sit amet,
+            Please click the
             <br />
-            consectetur adipiscing elit.
+            images to see content.
           </div>
           <div
-            className="serif text-2xl"
-            style={{ transform: "translate3d(15vw, 120vh, 0)" }}
+            className="serif text-2xl text-white"
+            style={{ transform: "translate3d(10vw, 130vh, 0)" }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            I do everything for money.
           </div>
           <div
-            className="serif text-2xl"
-            style={{ transform: "translate3d(85vw, 250vh, 0)" }}
+            className="serif text-lg"
+            style={{ transform: "translate3d(2vw, 220vh, 0)" }}
           >
-            Lorem ipsum
+            Inspiration and ideas
             <br />
-            dolor sit amet,
+            Fundamentals
             <br />
-            consectetur
+            Finding models
             <br />
-            adipiscing elit.
+            Preparing them for the web
+            <br />
+            Displaying and changing models
+            <br />
+            Animation fundamentals
+            <br />
+            Effects and making things look good
+            <br />
+            Performance and time to load
+            <br />
           </div>
         </Scroll>
         <Preload />

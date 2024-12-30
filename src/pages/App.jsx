@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Leva } from "leva"
-import { Routes, Route, Link, Outlet, useLocation } from "react-router-dom"
-import { Overlay } from "../components/Overlay"
+import { Routes, Route } from "react-router-dom"
 
-import Tooltip from "../components/Tooltip"
+import { Navigation } from "../components/Navigation.jsx"
+import { Overlay } from "../components/Overlay.jsx"
+import Tooltip from "../components/Tooltip.jsx"
 
 import Home from "./Home.jsx"
 import Page01 from "./Page_01.jsx"
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <>
       <Leva hidden={true} />
+
       {/* Overlay route */}
       <Routes>
         {/* <Route
@@ -36,14 +38,14 @@ export default function App() {
             />
           }
         /> */}
-        <Route path="/" element={<Layout />} />
-        <Route path="/page1" element={<Layout />} />
-        <Route path="/page2" element={<Layout />} />
-        <Route path="/page3" element={<Layout />} />
-        <Route path="/page4" element={<Layout />} />
-        <Route path="/page5" element={<Layout />} />
-        <Route path="/page6" element={<Layout />} />
-        <Route path="/about" element={<Layout />} />
+        <Route path="/" element={<Navigation />} />
+        <Route path="/page1" element={<Navigation />} />
+        <Route path="/page2" element={<Navigation />} />
+        <Route path="/page3" element={<Navigation />} />
+        <Route path="/page4" element={<Navigation />} />
+        <Route path="/page5" element={<Navigation />} />
+        <Route path="/page6" element={<Navigation />} />
+        <Route path="/about" element={<Navigation />} />
       </Routes>
 
       <Routes>
@@ -60,77 +62,5 @@ export default function App() {
         <Tooltip position={tooltip.position} text={tooltip.text} />
       )}
     </>
-  )
-}
-
-function Layout() {
-  const location = useLocation()
-
-  return (
-    <div className="absolute z-20">
-      <nav className="border-transparent">
-        <ul className="flex justify-start mx-6 m-3 space-x-5 border-transparent">
-          <li>
-            <Link
-              to="/"
-              className={location.pathname === "/" ? "underline" : ""}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/about"
-              className={location.pathname === "/about" ? "underline" : ""}
-            >
-              About
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/page1"
-              className={location.pathname === "/page1" ? "underline" : ""}
-            >
-              Page 1
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/page2"
-              className={location.pathname === "/page2" ? "underline" : ""}
-            >
-              Page 2
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/page3"
-              className={location.pathname === "/page3" ? "underline" : ""}
-            >
-              Page 3
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/page4"
-              className={location.pathname === "/page4" ? "underline" : ""}
-            >
-              Page 4
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/page5"
-              className={location.pathname === "/page5" ? "underline" : ""}
-            >
-              Page 5
-            </Link>
-          </li>
-        </ul>
-      </nav>
-
-      <hr />
-      <Outlet />
-    </div>
   )
 }

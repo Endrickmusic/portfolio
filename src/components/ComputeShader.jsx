@@ -51,7 +51,6 @@ export default function initWater({
   const [normalMap, roughnessMap] = useTexture([
     "./textures/waternormals.jpeg",
     "./textures/SurfaceImperfections003_1K_var1.jpg",
-    "./textures/Portrait_02.jpg",
   ])
 
   const options = useControls("Controls", {
