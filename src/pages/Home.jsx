@@ -90,9 +90,11 @@ export default function Home() {
           </div>
           <div
             className="serif text-2xl text-white"
-            style={{ transform: "translate3d(10vw, 130vh, 0)" }}
+            style={{ transform: "translate3d(11vw, 127vh, 0)" }}
           >
-            I do everything for money.
+            Play with the particle
+            <br />
+            and the photo.
           </div>
           <div
             className="serif text-lg"
