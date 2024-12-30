@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber"
 
-import BackButton from "../components/BackButton"
 import ColorCube from "../components/ColorCube.jsx"
 
 export default function Page03() {
@@ -31,7 +30,6 @@ export default function Page03() {
       >
         <ColorCube />
       </Canvas>
-      <BackButton />
     </>
   )
 }

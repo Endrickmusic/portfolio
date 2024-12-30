@@ -26,7 +26,7 @@ export default function App() {
       <Leva hidden={true} />
       {/* Overlay route */}
       <Routes>
-        <Route
+        {/* <Route
           path="/overlay"
           element={
             <Overlay
@@ -35,8 +35,15 @@ export default function App() {
               date="09/12/2024"
             />
           }
-        />
+        /> */}
         <Route path="/" element={<Layout />} />
+        <Route path="/page1" element={<Layout />} />
+        <Route path="/page2" element={<Layout />} />
+        <Route path="/page3" element={<Layout />} />
+        <Route path="/page4" element={<Layout />} />
+        <Route path="/page5" element={<Layout />} />
+        <Route path="/page6" element={<Layout />} />
+        <Route path="/about" element={<Layout />} />
       </Routes>
 
       <Routes>
@@ -81,20 +88,42 @@ function Layout() {
           </li>
           <li>
             <Link
-              to="/dashboard"
-              className={location.pathname === "/dashboard" ? "underline" : ""}
+              to="/page1"
+              className={location.pathname === "/page1" ? "underline" : ""}
             >
-              Dashboard
+              Page 1
             </Link>
           </li>
           <li>
             <Link
-              to="/nothing-here"
-              className={
-                location.pathname === "/nothing-here" ? "underline" : ""
-              }
+              to="/page2"
+              className={location.pathname === "/page2" ? "underline" : ""}
             >
-              Nothing Here
+              Page 2
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/page3"
+              className={location.pathname === "/page3" ? "underline" : ""}
+            >
+              Page 3
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/page4"
+              className={location.pathname === "/page4" ? "underline" : ""}
+            >
+              Page 4
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/page5"
+              className={location.pathname === "/page5" ? "underline" : ""}
+            >
+              Page 5
             </Link>
           </li>
         </ul>

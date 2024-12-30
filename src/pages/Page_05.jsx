@@ -1,5 +1,3 @@
-import BackButton from "../components/BackButton"
-
 export default function Page05() {
   return (
     <div
@@ -13,7 +11,6 @@ export default function Page05() {
         background: "#ddddee",
       }}
     >
-      <BackButton />
       <h1 style={{ margin: "0 2rem" }}>Procedural Building</h1>
       <div>
         <video

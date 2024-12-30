@@ -1,4 +1,3 @@
-import BackButton from "../components/BackButton"
 import ComputeShader from "../components/ComputeShader.jsx"
 
 export default function About() {
@@ -16,8 +15,6 @@ export default function About() {
         padding: "2rem",
       }}
     >
-      <BackButton />
-
       <div style={{ maxWidth: "800px", margin: "2rem 0" }}>
         <h1 style={{ marginBottom: "2rem" }}>About</h1>
 

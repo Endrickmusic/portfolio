@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber"
 
-import BackButton from "../components/BackButton"
 import ComputeShader from "../components/ComputeShader.jsx"
 
 export default function Page03() {
@@ -35,7 +34,6 @@ export default function Page03() {
           rotation={[Math.PI / 1.7, 0, 0]}
         />
       </Canvas>
-      <BackButton />
     </>
   )
 }
