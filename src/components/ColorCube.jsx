@@ -6,6 +6,7 @@ import {
   useEnvironment,
   useGLTF,
   Image,
+  useVideoTexture,
 } from "@react-three/drei"
 import { useFrame, useThree } from "@react-three/fiber"
 import { DoubleSide, Vector3, MathUtils } from "three"
@@ -20,15 +21,15 @@ import {
 
 const accents = ["#E36702", "#E7CECB", "#E16174", "#B9C449"]
 const shuffle = (accent = 0) => [
-  { color: "#6547C7", roughness: 0.1 },
-  { color: "#6547C7", roughness: 0.75 },
-  { color: "#6547C7", roughness: 0.75 },
-  { color: "#E5C935", roughness: 0.1 },
-  { color: "#E5C935", roughness: 0.75 },
-  { color: "#E5C935", roughness: 0.1 },
-  { color: accents[accent], roughness: 0.1, accent: true },
-  { color: accents[accent], roughness: 0.75, accent: true },
-  { color: accents[accent], roughness: 0.1, accent: true },
+  { color: "#ffffff", roughness: 0.1 },
+  { color: "#ffffff", roughness: 0.75 },
+  // { color: "#6547C7", roughness: 0.75 },
+  // { color: "#E5C935", roughness: 0.1 },
+  // { color: "#E5C935", roughness: 0.75 },
+  // { color: "#E5C935", roughness: 0.1 },
+  // { color: accents[accent], roughness: 0.1, accent: true },
+  // { color: accents[accent], roughness: 0.75, accent: true },
+  // { color: accents[accent], roughness: 0.1, accent: true },
 ]
 
 export default function Experience() {
@@ -40,7 +41,10 @@ export default function Experience() {
 
   return (
     <>
-      <Perf position="top-left" />
+      {/* Set background color */}
+      <color attach="background" args={["#202020"]} />
+
+      {/* <Perf position="top-left" /> */}
       {/* <OrbitControls />  */}
 
       <Physics /*debug*/ gravity={[0, 0, 0]}>
@@ -165,7 +169,7 @@ function Pointer({ vec = new Vector3() }) {
       colliders={false}
       ref={ref}
     >
-      <BallCollider args={[1]} />
+      <BallCollider args={[2]} />
     </RigidBody>
   )
 }
@@ -173,18 +177,22 @@ function Pointer({ vec = new Vector3() }) {
 function Images() {
   const { width, height } = useThree((state) => state.viewport)
   const group = useRef()
+  const videoTexture = useVideoTexture("./video/Color_Cube_220923.mp4")
 
   return (
     <group ref={group}>
-      <Image position={[-12, 0, -5]} scale={[10, 18, 1]} url="./img/0003.png" />
       <Image
-        position={[0, 0, -5]}
-        scale={[10, 18, 1]}
+        position={[-10, 0, -5]}
+        scale={[10 / 1.5, 18 / 1.5, 1]}
         url="./img/colorcube_01.png"
       />
+      <mesh position={[0, 0, -5]} scale={[10 / 1.5, 18 / 1.5, 1]}>
+        <planeGeometry />
+        <meshBasicMaterial map={videoTexture} />
+      </mesh>
       <Image
-        position={[12, 0, -5]}
-        scale={[10, 18, 1]}
+        position={[10, 0, -5]}
+        scale={[10 / 1.5, 18 / 1.5, 1]}
         url="./img/Colorcube_octane_15.png"
       />
     </group>
