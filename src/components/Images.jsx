@@ -56,7 +56,7 @@ export default function Images() {
     <group ref={group}>
       <Image
         position={[-2, 0, 0]}
-        scale={[4, height, 1]}
+        scale={[4 * 0.9, height * 0.9, 1]}
         url="./img/Colorcube_octane_15.png"
         onClick={() => handleClick("/page1")}
         onPointerEnter={() => setHoveredIndex(0)}
@@ -153,8 +153,8 @@ export default function Images() {
         }}
       />
       <Image
-        position={[0, -height * 2.04, 0]}
-        scale={[width / 2, height, 1]}
+        position={[0, -height * 2.2, 0]}
+        scale={[width / 2.1, height * 1.1, 1]}
         url="./img/nohdri0114.png"
         onClick={() => handleClick("/page6")}
         onPointerEnter={() => setHoveredIndex(6)}

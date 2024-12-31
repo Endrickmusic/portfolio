@@ -63,7 +63,7 @@ export default function Home() {
           {/* <Shader position={[0, -1, 7]} uSize={0.005} /> */}
           <Model
             scale={0.1}
-            position={[-1, -12.5, 3]}
+            position={[-1.5, -12.5, 3]}
             rotation={[0, 1.1, 0]}
             onPointerEnter={(e) => handlePointerOver(e, "Model")}
             onPointerLeave={handlePointerOut}
@@ -82,7 +82,7 @@ export default function Home() {
         <Scroll html>
           <div
             className="serif text-2xl"
-            style={{ transform: "translate3d(65vw, 30vh, 0)" }}
+            style={{ transform: "translate3d(56vw, 5vh, 0)" }}
           >
             Please click the
             <br />
@@ -92,12 +92,12 @@ export default function Home() {
             className="serif text-2xl text-white"
             style={{ transform: "translate3d(11vw, 127vh, 0)" }}
           >
-            Play with the particle
-            <br />
-            and the photo.
+            Play with the particles.
+            {/* <br />
+            and the photo. */}
           </div>
           <div
-            className="serif text-lg"
+            className="serif text-lg text-gray-500"
             style={{ transform: "translate3d(2vw, 220vh, 0)" }}
           >
             Inspiration and ideas

@@ -6,7 +6,7 @@ export default function Page03() {
   return (
     <>
       <Canvas camera={{ position: [0, 0, 30], fov: 30 }}>
-        <color attach="background" args={["#ffffff"]} />
+        {/* <color attach="background" args={["#eeeeff"]} /> */}
         <ColorCube />
       </Canvas>
     </>

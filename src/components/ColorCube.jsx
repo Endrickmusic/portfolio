@@ -21,15 +21,15 @@ import {
 
 const accents = ["#E36702", "#E7CECB", "#E16174", "#B9C449"]
 const shuffle = (accent = 0) => [
-  { color: "#ffffff", roughness: 0.1 },
+  { color: "#ffffff", roughness: 0.3 },
   { color: "#ffffff", roughness: 0.75 },
-  // { color: "#6547C7", roughness: 0.75 },
-  // { color: "#E5C935", roughness: 0.1 },
+  { color: "#6547C7", roughness: 0.75 },
+  { color: "#E5C935", roughness: 0.1 },
   // { color: "#E5C935", roughness: 0.75 },
   // { color: "#E5C935", roughness: 0.1 },
-  // { color: accents[accent], roughness: 0.1, accent: true },
-  // { color: accents[accent], roughness: 0.75, accent: true },
-  // { color: accents[accent], roughness: 0.1, accent: true },
+  { color: accents[accent], roughness: 0.5, accent: true },
+  { color: accents[accent], roughness: 0.75, accent: true },
+  // { color: accents[accent], roughness: 0.4, accent: true },
 ]
 
 export default function Experience() {
@@ -42,7 +42,7 @@ export default function Experience() {
   return (
     <>
       {/* Set background color */}
-      <color attach="background" args={["#202020"]} />
+      <color attach="background" args={["#eeeeaa"]} />
 
       {/* <Perf position="top-left" /> */}
       {/* <OrbitControls />  */}

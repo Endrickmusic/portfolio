@@ -14,6 +14,7 @@ import Page04 from "./Page_04.jsx"
 import Page05 from "./Page_05.jsx"
 import Page06 from "./Page_06.jsx"
 import About from "./About.jsx"
+import Imprint from "./Imprint.jsx"
 
 export default function App() {
   const [tooltip, setTooltip] = useState({
@@ -46,6 +47,7 @@ export default function App() {
         <Route path="/page5" element={<Navigation />} />
         <Route path="/page6" element={<Navigation />} />
         <Route path="/about" element={<Navigation />} />
+        <Route path="/imprint" element={<Navigation />} />
       </Routes>
 
       <Routes>
@@ -57,6 +59,7 @@ export default function App() {
         <Route path="/page5" element={<Page05 />} />
         <Route path="/page6" element={<Page06 />} />
         <Route path="/about" element={<About />} />
+        <Route path="/imprint" element={<Imprint />} />
       </Routes>
       {tooltip.visible && (
         <Tooltip position={tooltip.position} text={tooltip.text} />
