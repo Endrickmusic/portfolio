@@ -12,6 +12,8 @@ export default function Images() {
   const [hoveredIndex, setHoveredIndex] = useState(-1)
   const { width, height } = useThree((state) => state.viewport)
 
+  const isMobile = width < 4
+
   const diffuseMap = useTexture("./textures/Portrait_02.jpg")
   useFrame(() => {
     group.current.children[0].material.zoom = 1.2 - data.range(0, 1 / 3) / 3
@@ -43,20 +45,20 @@ export default function Images() {
   ]
 
   const imagePositions = [
-    [-2, 0, 0],
-    [2, 0, 3],
-    [-2.05, -height * 2.4, 6],
-    [-0.6, -height * 2.4, 9],
-    [1.9, -height * 2.4, 2],
-    [1, -height * 3.4, 7.5],
+    isMobile ? [-0.4, 0.25, 0] : [-2, 0, 0],
+    isMobile ? [0.5, -0.95, 3] : [2, 0, 3],
+    isMobile ? [-0.5, -height * 1.8, 6] : [-2.05, -height * 2.4, 6],
+    isMobile ? [0.5, -height * 2.6, 9] : [-0.6, -height * 2.4, 9],
+    isMobile ? [-0.5, -height * 3.4, 2] : [1.9, -height * 2.4, 2],
+    isMobile ? [0.5, -height * 4.2, 7.5] : [1, -height * 3.4, 7.5],
     [0, -height * 4.4, 0],
   ]
 
   return (
     <group ref={group}>
       <Image
-        position={[-2, 0, 0]}
-        scale={[4 * 0.9, height * 0.9, 1]}
+        position={imagePositions[0]}
+        scale={isMobile ? [2.1, height * 0.6, 1] : [4 * 0.9, height * 0.9, 1]}
         url="./img/Colorcube_octane_15.png"
         onClick={() => handleClick("/page1")}
         onPointerEnter={() => setHoveredIndex(0)}
@@ -71,8 +73,8 @@ export default function Images() {
         }}
       />
       <Image
-        position={[2, 0, 3]}
-        scale={3}
+        position={imagePositions[1]}
+        scale={isMobile ? 1.5 : 3}
         url="./img/vellum_dance.png"
         onClick={() => handleClick("/page2")}
         onPointerEnter={() => setHoveredIndex(1)}
@@ -86,22 +88,6 @@ export default function Images() {
           e.stopPropagation()
         }}
       />
-      {/* <Image
-        position={[-2.05, -height, 6]}
-        scale={[1, 3, 1]}
-        url="./img/dispersion_octane_08.png"
-        onClick={() => handleClick("/page3")}
-        onPointerEnter={() => setHoveredIndex(2)}
-        onPointerLeave={() => setHoveredIndex(-1)}
-        onPointerOver={(e) => {
-          document.body.style.cursor = "pointer"
-          e.stopPropagation()
-        }}
-        onPointerOut={(e) => {
-          document.body.style.cursor = "auto"
-          e.stopPropagation()
-        }}
-      /> */}
       <Image
         position={[-1.6, -height * 1.0, 9]}
         scale={[1.2, 2.3, 1.2]}

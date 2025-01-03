@@ -3,7 +3,6 @@ import { Leva } from "leva"
 import { Routes, Route } from "react-router-dom"
 
 import { Navigation } from "../components/Navigation.jsx"
-import { Overlay } from "../components/Overlay.jsx"
 import Tooltip from "../components/Tooltip.jsx"
 
 import Home from "./Home.jsx"
@@ -22,6 +21,8 @@ export default function App() {
     text: "",
     position: { x: 0, y: 0 },
   })
+
+  const isMobile = window.innerWidth < 768
 
   return (
     <>
@@ -51,15 +52,15 @@ export default function App() {
       </Routes>
 
       <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/page1" element={<Page01 />} />
-        <Route path="/page2" element={<Page02 />} />
-        <Route path="/page3" element={<Page03 />} />
-        <Route path="/page4" element={<Page04 />} />
-        <Route path="/page5" element={<Page05 />} />
-        <Route path="/page6" element={<Page06 />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/imprint" element={<Imprint />} />
+        <Route exact path="/" element={<Home isMobile={isMobile} />} />
+        <Route path="/page1" element={<Page01 isMobile={isMobile} />} />
+        <Route path="/page2" element={<Page02 isMobile={isMobile} />} />
+        <Route path="/page3" element={<Page03 isMobile={isMobile} />} />
+        <Route path="/page4" element={<Page04 isMobile={isMobile} />} />
+        <Route path="/page5" element={<Page05 isMobile={isMobile} />} />
+        <Route path="/page6" element={<Page06 isMobile={isMobile} />} />
+        <Route path="/about" element={<About isMobile={isMobile} />} />
+        <Route path="/imprint" element={<Imprint isMobile={isMobile} />} />
       </Routes>
       {tooltip.visible && (
         <Tooltip position={tooltip.position} text={tooltip.text} />

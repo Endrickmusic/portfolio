@@ -1,7 +1,7 @@
 import { useThree } from "@react-three/fiber"
 import { Text } from "@react-three/drei"
 
-export default function Typography() {
+export default function Typography({ isMobile }) {
   const state = useThree()
   const { width, height } = state.viewport.getCurrentViewport(
     state.camera,

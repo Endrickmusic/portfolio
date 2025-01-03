@@ -42,12 +42,12 @@ const handlePointerOut = () => {
   setTooltip({ ...tooltip, visible: false })
 }
 
-export default function Home() {
+export default function Home({ isMobile }) {
   return (
     <Canvas
       camera={{
-        position: [0, 0, 20],
-        fov: 15,
+        position: [0, 0, isMobile ? 25 : 20], // Move camera back on mobile
+        fov: isMobile ? 20 : 15, // Wider FOV for mobile
         near: 0.1,
         far: 1000,
         aspect: window.innerWidth / window.innerHeight,
